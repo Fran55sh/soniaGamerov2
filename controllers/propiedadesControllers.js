@@ -33,7 +33,7 @@ let transporter = nodemailer.createTransport({
   service: 'gmail', // Configura tus detalles de servidor SMTP o autenticación según tu caso
   auth: {
     user: 'corvattafranco@gmail.com', // Tu dirección de correo electrónico
-    pass: './Ff94639630', // Tu contraseña
+    pass: 'bcut iauk gune qjuw', // Tu contraseña
   },
 });
 

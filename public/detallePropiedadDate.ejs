@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <% include ./ejs/head %>
 
     <body>
@@ -49,31 +48,6 @@
                                     <div class="swiper-button-next"></div>
                                 </div>
                                 
-
-                                <!-- inicio calendario -->
-
-                                <!-- <div class="wrapper-calendar">
-                                    <p style="font-size: 1.45rem; font-weight: 500; text-align: center;">Disponibilidad</p>
-                                    <div class="header">
-                                        <p class="current-date"></p>
-                                        <div class="icons">
-                                            <span id="prev" class="material-symbols-rounded">chevron_left</span>
-                                            <span id="next" class="material-symbols-rounded">chevron_right</span>
-                                        </div>
-                                    </div>
-                                    <div class="calendar">
-                                        <ul class="weeks">
-                                            <li>Dom</li>
-                                            <li>Lun</li>
-                                            <li>Mar</li>
-                                            <li>Mie</li>
-                                            <li>Jue</li>
-                                            <li>Vie</li>
-                                            <li>Sab</li>
-                                        </ul>
-                                        <ul class="days"></ul>
-                                    </div>
-                                </div> -->
                             </div>
 
                             <!-- fin calendario  -->
@@ -81,28 +55,87 @@
                             <!-- inicio div wrapper -->
 
                             <div class="wraper">
-                               
-                                <div class="card-descripcion-wrapper">
-                                    <p class="card-propiedad-description-name">
-                                        <%= propiedad[0].nombre %>
-                                    </p>
-
-                                    <div class="card-propiedad-description">
-                                        <p class="card-propiedad-description-price">
-                                            Precio: USD <%= propiedad[0].precio %>
+                                <div class="wrapper1">
+                                    <div class="card-descripcion-wrapper">
+                                        <p class="card-propiedad-description-name">
+                                            <%= propiedad[0].nombre %>
                                         </p>
-                                        <h2 style="font-weight: 100;"> Detalles</h2>
-                                        <p class="card-propiedad-description-specs">
-                                            <%= propiedad[0].descripcion %>
-                                        </p>
+    
+                                        <div class="card-propiedad-description">
+                                            <p class="card-propiedad-description-specs">
+                                                <%= propiedad[0].descripcion %>
+                                            </p>
+                                        </div>
                                     </div>
-                                    <hr>
-                                    <h2 style="font-weight: 100;">Caracteristicas</h2>
-                                    <p class="card-propiedad-description-specs">
-                                        <%= propiedad[0].descripcioncorta %>
-                                    </p>
+    
+                                    <div class="card-descripcion-wrapper">
+                                        <p> <b>Tipo de Propiedad:</b>  <%= propiedad[0].tipo.nombre %> </p>
+                                        <p> <b>Distancia al mar:</b>  <%= propiedad[0].distanciaAlMar %> </p>
+                                        <p> <b>Distancia al centro:</b>  <%= propiedad[0].distanciaAlCentro %> </p>
+                                        <p> <b>Cantidad de personas</b> : <%= propiedad[0].cantidadPersonas %> </p>
+                                        <p> <b>Ambientes:</b>  <%= propiedad[0].cantidadAmbientes %> </p>
+                                    </div> 
+                                    <div class="card-descripcion-wrapper">
+                                        <p class="card-propiedad-description-name">
+                                           Servicios
+                                        </p>
+                                        <div class="servicios">
+
+                                            <% if (propiedad[0].wifi) { %>
+                                                <p> <b>Wifi:</b><span class="material-symbols-outlined">check_box</span></p>
+                                            <% }else {%>
+                                                <p><b>Wifi:</b> <span class="material-symbols-outlined">disabled_by_default</span>
+                                                <% } %>
+                                                    
+                                            <% if (propiedad[0].tv) { %>
+                                                <p> <b>Tv:</b>  <span class="material-symbols-outlined">check_box</span></p>
+                                            <% }else {%>
+                                                <p><b>Tv:</b> <span class="material-symbols-outlined">disabled_by_default</span>
+                                                <% } %>
+                                                
+                                            <% if (propiedad[0].cochera) { %>
+                                                <p><b>Cochera:</b> <span class="material-symbols-outlined">check_box</span></p>
+                                            <% }else {%>
+                                                <p><b>Cochera:</b> <span class="material-symbols-outlined">disabled_by_default</span>
+                                            <% } %>    
+    
+                                            <% if (propiedad[0].mascotas) { %>
+                                                <p><b>Masctoas:</b> <span class="material-symbols-outlined">check_box</span></p>
+                                            <% }else {%>
+                                                <p><b>Masctoas:</b> <span class="material-symbols-outlined">disabled_by_default</span>
+                                            <% } %>
+    
+                                            <% if (propiedad[0].pileta) { %>
+                                                <p><b>Pileta:</b> <span class="material-symbols-outlined">check_box</span></p>
+                                            <% }else {%>
+                                                <p><b>Pileta:</b> <span class="material-symbols-outlined">disabled_by_default</span>
+                                                <% } %>
+                                                    
+                                            <% if (propiedad[0].conBlanco) { %>
+                                                <p><b>Con Blanco</b>: <span class="material-symbols-outlined">check_box</span></p>
+                                            <% }else {%>
+                                                <p><b>Con Blanco:</b> <span class="material-symbols-outlined">disabled_by_default</span>
+                                                <% } %>
+                                                
+                                            <% if (propiedad[0].lavarropa) { %>
+                                                <p><b>Lavarropa:</b> <span class="material-symbols-outlined">check_box</span></p>
+                                            <% }else {%>
+                                                <p><b>Lavarropa:</b> <span class="material-symbols-outlined">disabled_by_default</span>
+                                            <% } %>    
+    
+                                            <% if (propiedad[0].parrilla) { %>
+                                                <p><b>Parrilla:</b> <span class="material-symbols-outlined">check_box</span></p>
+                                            <% }else {%>
+                                                <p><b>Parrilla:</b> <span class="material-symbols-outlined">disabled_by_default</span>
+                                            <% } %>
+                                        </div>
+
+                                    </div>       
+
                                 </div>
                                 
+
+
                                 <div class="reserva">
                                         <div class="fechas">
                                             <input type="text" name="daterange" id="daterange" />
@@ -112,7 +145,7 @@
                                         <div class="starEndDays" style="display: flex; justify-content: space-between; padding: 5px;">
                                             
                                             <p style="padding: 5px;">In: <span class="in" id="checkin-date"></span> </p>
-                                            <p style="padding: 5px;"">Out: <span class="out" id="checkout-date"> </span></p>
+                                            <p style="padding: 5px;">Out: <span class="out" id="checkout-date"> </span></p>
 
                                         </div>
                                         <div class="precioDia">Precio por dia: <%= propiedad[0].precio %></div>

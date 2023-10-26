@@ -85,6 +85,14 @@ const propiedadesDateModel = sequelize.define(
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    ciudad: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    provincia: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
     direccion: {
       type: DataTypes.TEXT,
       allowNull: false,
@@ -93,12 +101,66 @@ const propiedadesDateModel = sequelize.define(
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    wifi: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    tv: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    cochera: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    mascotas: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    pileta: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    conBlanco: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    lavarropa: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    parrilla: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+      distanciaAlCentro: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        defaultValue: false,
+      },
+      distanciaAlMar: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        defaultValue: false,
+      },
     esDestacado: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false,
     },
     cantidadPersonas:{
+      type: DataTypes.INTEGER,
+      allowNull:false,
+    },
+    cantidadAmbientes:{
       type: DataTypes.INTEGER,
       allowNull:false,
     },

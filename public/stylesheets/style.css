@@ -765,12 +765,24 @@ footer{
 .card-propiedad .card-descripcion-wrapper {
   display: flex;
   flex-direction: column;
-  max-width: 70%;
-  /* margin: auto; */
-  width: 80%;
   margin-top: 15px;
   padding: 10px;
   background-color: white;
+}
+
+.wrapper1{
+  width: 100% ;
+}
+
+.material-symbols-outlined {
+  vertical-align: middle;
+  font-weight: 200 !important;
+}
+
+.servicios{
+    display: grid;
+    grid-template-columns: auto auto; /* Dos columnas de ancho automático */
+  
 }
 .card-propiedad .card-descripcion-wrapper .card-propiedad-description-name {
   font-size: 2rem;
@@ -785,8 +797,7 @@ footer{
   white-space: pre-line;
 }
 .card-propiedad .card-descripcion-wrapper p {
-  margin: 15px;
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: 100;
   text-align: justify;
 }
@@ -1007,7 +1018,7 @@ body iframe {
   height: 100%;
   background-color: white;
   padding: 10px;
-  min-width: 25%;
+  width: 50%;
 
 }
 
