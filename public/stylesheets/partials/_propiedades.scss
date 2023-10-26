@@ -1,0 +1,165 @@
+#coverPropiedades {
+    min-height: 0vh;
+
+    .coverPropiedadesText{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        line-height: px;
+        max-height: 300px;
+
+        h1 {
+    
+            text-align: center;
+            height: 382px;
+            line-height: 200px;
+            font-size: 4rem;
+            color: white;
+            letter-spacing: 0.5rem;
+        }
+    }
+
+
+}
+
+.listed-properties {
+    max-width: 80%;
+    margin: auto;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .main-properties-title {
+        color: $color-principal;
+        font-weight: 100;
+
+    }
+
+    .cards {
+
+        width: 100%;
+        overflow: hidden;
+
+        .card {
+            background-color: transparent;
+            display: flex;
+            flex-flow: column wrap;
+            align-items: center;
+            margin-top: 20px;
+
+            .card-img {
+                width: 90%;
+                aspect-ratio: 16/10;
+                object-fit: cover;
+            }
+
+            .card-condition {
+                align-items: center;
+                display: flex;
+                justify-content: space-between;
+                color: white;
+                width: 100%;
+                margin-top: 0;
+                padding: 15px;
+
+            }
+
+            button{
+                font-family: $font-principal;
+            font-weight: 500;
+            letter-spacing: 1px;
+            font-size: 1rem;
+            font-weight: 100;
+            background-color: white;
+            color: $color-secundario;
+            padding: 5px 10px 5px 10px;
+            }
+
+            .for-sale {
+                background-color: $color-principal;
+            }
+
+            .for-rent {
+                background-color: $color-secundario;
+            }
+
+            .card-description {
+                align-self: baseline;
+
+                .card-description-type,
+                .card-description-name,
+                .card-description-price,
+                .card-description-specs {
+                    margin: 8px;
+                }
+
+                .card-description-name {
+                    color: $color-principal;
+                    font-size: 1.5rem;
+                }
+
+                .card-description-price {
+                    color: $color-principal;
+                    font-size: 1.2rem;
+                }
+
+                .card-description-specs {
+                    color: $color-secundario;
+                    font-size: 0.8rem;
+                }
+            }
+        }
+
+    }
+
+}
+
+
+
+
+@media screen and (min-width: 900px) {
+    .listed-properties {
+        max-width: 95%;
+
+        .cards {
+
+            display: flex;
+            justify-content: space-around;
+            flex-flow: row wrap;
+
+            .card {
+                width: 25%;
+                margin: 40px;
+            }
+
+            /* Estilos para la flecha de navegación previa */
+            .swiper-button-prev {
+                --swiper-navigation-size: 20px;
+                color: white;
+            }
+
+            /* Estilos para la flecha de navegación siguiente */
+            .swiper-button-next {
+                --swiper-navigation-size: 20px;
+                color: white;
+            }
+        }
+
+    }
+
+}
+
+.swiper {
+    width: 90%;
+    aspect-ratio: 16/10;
+    object-fit: cover;
+}
+
+.swiper-slide-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

@@ -1,0 +1,105 @@
+.search-cover {
+    background-image: linear-gradient(rgb(62, 64, 149, 0.7),
+            rgb(62, 64, 149, 0.7)),
+        url(../../images/backgr.webp);
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .search-text {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 90%;
+        gap: 20px;
+        align-items: center;
+        text-align: center;
+        margin-top: 50px;
+        margin-bottom: 50px;
+
+        h3 {
+            text-align: center;
+            color: white;
+            max-width: 90%;
+            text-align: justify;
+            font-size: 1rem;
+            font-weight: 100;
+        }
+
+        h2 {
+            font-size: 3rem;
+            color: white;
+            margin: 0;
+        }
+    }
+
+    .search-cards {
+        display: flex;
+        flex-direction: column;
+        color: white;
+
+        .material-symbols-outlined {
+            font-size: 4rem;
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 200,
+                'GRAD' 0,
+                'opsz' 148
+        }
+
+        .search-card {
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 40px;
+        
+            .search-card-description{
+                max-width: 40%;
+            }
+
+        .search-card-title {
+            font-size: 2rem;
+            font-weight: 500;
+        }
+
+        .line {
+            margin: auto;
+            width: 10%;
+            height: 2px;
+            background-color: white;
+        }
+
+        .search-card-button, .tasacion-card-button {
+            letter-spacing: 1px;
+            font-weight: 100;
+            font-size: 1rem;
+            background-color: white;
+            color: #ff0000;
+            padding: 15px 30px 15px 30px;
+            display: inline-block;
+        }
+    }
+
+}
+}
+
+@media screen and (min-width: 900px) {
+    .search-cards{
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        width: 100% !important;
+
+        .search-card{
+            flex-basis: calc(33.33% - 10px);
+        }
+    }
+
+}

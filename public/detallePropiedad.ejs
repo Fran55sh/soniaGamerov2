@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include ./ejs/head %>
+
+    <body>
+
+
+
+        <% if (propiedad===null) { %>
+            <div class="cover" id="coverPropiedades" style="height: 100vh;">
+                <% include ./ejs/header %>
+
+                    <h1 style="color:white; display: flex; justify-content: center; align-items: center;">Esta propiedad
+                        no existe</h1>
+
+                    <% } else {%>
+                        <div class="cover" id="coverPropiedades">
+                            <% include ./ejs/header %>
+                                <div class="coverPropiedadesText">
+
+
+                                </div>
+
+                        </div>
+                            <div class="card-propiedad">
+                                <div class="swiper">
+                                    <div class="swiper-wrapper">
+                                        <% propiedad[0].fotos.forEach(foto=> { %>
+                                            <div class="swiper-slide">
+                                                <img class="swiper-slide-img"
+                                                    src="/images/propiedades/<%= foto.nombre %>" alt="">
+                                            </div>
+                                            <% }) %>
+
+                                    </div>
+                                    <!-- If we need navigation buttons -->
+                                    <div class="swiper-button-prev"></div>
+                                    <div class="swiper-button-next"></div>
+                                </div>
+
+
+
+
+                                <div class="wraper">
+
+
+                                    <div class="card-descripcion-wrapper">
+    
+                                        <p class="card-propiedad-description-name">
+                                            <%= propiedad[0].nombre %>
+                                        </p>
+    
+                                        <div class="card-propiedad-description">
+                                            <!-- <p class="card-description-type">
+                                                    <%= propiedad[0].tipo.nombre %>
+                                                </p> -->
+                                            <p class="card-propiedad-description-price">
+                                                Precio: USD <%= propiedad[0].precio %>
+                                            </p>
+                                            <h2 style="font-weight: 100;"> Detalles</h2>
+                                            <p class="card-propiedad-description-specs">
+                                                <%= propiedad[0].descripcion %>
+                                            </p>
+                                        </div>
+                                        <hr>
+    
+                                    </div>
+                                    <div class="card-descripcion-wrapper">
+                                        <h2 style="font-weight: 100;">Caracteristicas</h2>
+                                        <p class="card-propiedad-description-specs">
+                                            <%= propiedad[0].descripcioncorta %>
+                                        </p>
+                                </div>
+
+                                </div>
+                            </div>
+
+                        <div class="mapa">
+
+                            <%- unescape(propiedad[0].mapa.trim()) %>
+
+
+
+                        </div>
+
+
+                        <% include ./ejs/footer %>
+                            <% } %>
+
+
+
+
+
+
+                                <script src=" https://cdn.jsdelivr.net/npm/swiper@9.3.2/swiper-bundle.min.js"></script>
+                                <script>
+
+                                    const swipers = Array.from(document.querySelectorAll('.swiper'));
+
+                                    swipers.forEach(swiper => {
+                                        new Swiper(swiper, {
+                                            // Configuración de Swiper para cada swiper individual
+                                            direction: 'horizontal',
+                                            loop: true,
+                                            // ... otras opciones
+                                            // If we need pagination
+                                            pagination: {
+                                                el: swiper.querySelector('.swiper-pagination'),
+                                            },
+
+                                            // Navigation arrows
+                                            navigation: {
+                                                nextEl: swiper.querySelector('.swiper-button-next'),
+                                                prevEl: swiper.querySelector('.swiper-button-prev'),
+                                            },
+
+                                            // And if we need scrollbar
+                                            scrollbar: {
+                                                el: swiper.querySelector('.swiper-scrollbar'),
+                                            },
+                                        });
+                                    });
+
+                               
+
+                                </script>
+                                <script src="/javascripts/propiedades.js"></script>
+                                <script src="/javascripts/index.js"></script>
+
+
+
+    </body>
+
+</html>

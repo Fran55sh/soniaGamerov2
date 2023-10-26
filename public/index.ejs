@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+  <% include ./ejs/head %>
+
+<body>
+  <main>
+    <div class="cover">
+
+      <% include ./ejs/header %>
+
+      <section class="central">
+        <div class="presentacion">
+          <div class="phone"><span class="material-symbols-outlined">phone_iphone</span> 291-4631091</div>
+          <h1 class="title">Encontra la casa de tus sueños!</h1>
+          <!-- <h4 class="subtitle">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam id quae, a possimus, -->
+          </h4>
+          <button type="button">Contactanos!</button>
+
+        </div>
+        <div class="contacto" id="contacto">
+          <h3>Necesitas Ayuda?</h3>
+          <h2>Escribinos</h2>
+          <form action="https://formsubmit.co/soniagameropropiedades@gmail.com" method="POST">
+            <label for="name"></label>
+            <input class="forms" placeholder="Nombre" type="text" id="name" name="name" required>
+            <label for="email"></label>
+            <input class="forms" placeholder="Email" type="email" id="email" name="email" required>
+            <label for="message"></label>
+            <textarea class="forms" placeholder="Mensaje" id="message" name="message" rows="5" required></textarea>
+            <input class="form-button" type="submit" value="Enviar Mensaje">
+            <input type="hidden" name="_next" value="http://soniagameropropiedades.com/">
+          </form>
+
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <section class="listed-properties">
+      
+     <h2 class="main-properties-title">Propiedades Destacadas</h2>
+
+    <div class="cards" id="cards">
+
+
+        <% featPropiedades.forEach(propiedad=> { %>
+            <div class="card">
+                <div class="swiper">
+                    <div class="swiper-wrapper">
+                        <% propiedad.fotos.forEach(foto=> { %>
+                            <div class="swiper-slide">
+                                <img loading="lazy" class="swiper-slide-img"
+                                    src="/images/propiedades/<%= foto.nombre %>" alt="">
+                            </div>
+                            <% }) %>
+
+                    </div>
+                    <!-- If we need navigation buttons -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+
+                <p class="card-condition">
+                    <%= propiedad.condicione.nombre %>
+                        <button class="mas-btn" data-propiedad-id=<%=propiedad.id %>>Ver mas</button>
+                </p>
+                <div class="card-description">
+                    <p class="card-description-type">
+                        <%= propiedad.tipo.nombre %>
+                    </p>
+                    <p class="card-description-name">
+                        <%= propiedad.nombre %>
+                    </p>
+                    <p class="card-description-price">
+                        Precio: USD <%= propiedad.precio %>
+                    </p>
+                    <p class="card-description-specs">
+                        <%= propiedad.descripcioncorta %>
+                    </p>
+
+                </div>
+            </div>
+            <% }) %>
+    </div>
+
+
+
+
+
+</section>
+
+
+
+  <div class="about" id="about">
+    <div class="about-cover">
+      <div class="about-content">
+        <img class="about-content-img" loading="lazy" src="/images/como-montar-inmobiliaria.jpg" alt="">
+        <div class="about-text">
+          <h3> Quienes Somos?</h3>
+          <h2>Sobre Nosotros</h2>
+          <p>Somos una empresa comprometida en acompañar a nuestros clientes en todas las etapas de compra, venta, alquileres e inversiones fiduciarias. Nuestro enfoque se basa en la empatía y el compromiso, por lo que nos capacitamos constantemente para brindarles novedades sobre nuevos proyectos y optimizar las operaciones. Ofrecemos asesoramiento profesional, legal y técnico para garantizar la efectividad de cada transacción.<br>
+
+            En Monte Hermoso y la zona, contamos con una amplia oferta de venta y alquileres de temporada, brindando un trato personalizado a nuestros pasajeros y asegurando a nuestros propietarios que sus activos están en buenas manos. Además, en Bahía Blanca, ofrecemos alquileres temporarios amoblados por día, semana o mes.<br>
+            
+            Nuestro equipo de tasaciones se mantiene actualizado para establecer los valores adecuados en el mercado. También contamos con profesionales de interiorismo para asesorar en refacciones y reciclaje de propiedades. Por último, nuestra división de campos se encuentra en constante crecimiento.</p>
+          
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <section class="listed-properties">
+    <h2 class="main-properties-title">Ultimas Propiedaes</h2>
+
+
+    <div class="cards" id="cards">
+
+
+        <% ultimasPropiedades.forEach(propiedad=> { %>
+            <div class="card">
+                <div class="swiper">
+                    <div class="swiper-wrapper">
+                        <% propiedad.fotos.forEach(foto=> { %>
+                            <div class="swiper-slide">
+                                <img loading="lazy" class="swiper-slide-img"
+                                    src="/images/propiedades/<%= foto.nombre %>" alt="">
+                            </div>
+                            <% }) %>
+
+                    </div>
+                    <!-- If we need navigation buttons -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+
+                <p class="card-condition">
+                    <%= propiedad.condicione.nombre %>
+                        <button class="mas-btn" data-propiedad-id=<%=propiedad.id %>>Ver mas</button>
+                </p>
+                <div class="card-description">
+                    <p class="card-description-type">
+                        <%= propiedad.tipo.nombre %>
+                    </p>
+                    <p class="card-description-name">
+                        <%= propiedad.nombre %>
+                    </p>
+                    <p class="card-description-price">
+                        Precio: USD <%= propiedad.precio %>
+                    </p>
+                    <p class="card-description-specs">
+                        <%= propiedad.descripcioncorta %>
+                    </p>
+
+                </div>
+            </div>
+            <% }) %>
+    </div>
+
+
+
+
+
+</section>
+
+ 
+  </section> -->
+
+  <div class="search" id="search">
+    <div class="search-cover">
+      <div class="search-text">
+        <h3>Estamos para ayudarte</h3>
+        <h2>Que estas Buscando?</h2>
+
+        <div class="search-cards">
+
+          <div class="search-card">
+            <span class="material-symbols-outlined">
+              house
+            </span>
+            <p class="search-card-title">Casas</p>
+            <div class="line"></div>
+            <p class="search-card-description"> Encuentra tu hogar perfecto entre nuestra amplia selección de casas. Espacios cómodos, diseños funcionales y acabados de calidad para cumplir tus sueños de vivienda</p>
+            <button class="search-card-button" data-propiedad-tipo=Casas >Buscar Casas</button>
+          </div>
+
+          <div class="search-card">
+            <span class="material-symbols-outlined">
+              apartment
+              </span>
+            <p class="search-card-title">Departamentos</p>
+            <div class="line"></div>
+            <p class="search-card-description">Descubre nuestros modernos departamentos, diseñados para brindarte comodidad y estilo. Ambientes bien distribuidos, vistas impresionantes y servicios que se adaptan a tu estilo de vida.</p>
+            <button class="search-card-button" data-propiedad-tipo=Departamentos>Buscar Departamentos</button>
+          </div>
+
+          <div class="search-card">
+            <span class="material-symbols-outlined">
+              partner_exchange
+              </span>
+            <p class="search-card-title">Fideicomisos</p>
+            <div class="line"></div>
+            <p class="search-card-description">Ofrecemos fideicomisos confiables y seguros, ideales para inversionistas. Obtén rentabilidad a largo plazo y protege tu patrimonio con nuestras opciones de fideicomisos confiables.</p>
+            <button class="search-card-button"data-propiedad-tipo=Fideicomisos>Buscar Fideicomisos</button>
+          </div>
+          <div class="search-card">
+
+            <span class="material-symbols-outlined">
+              foundation
+              </span>
+            <p class="search-card-title">Proyectos</p>
+            <div class="line"></div>
+            <p class="search-card-description">Descubre nuestros emocionantes proyectos inmobiliarios. Diseños innovadores, materiales de calidad y atención meticulosa a los detalles para crear espacios únicos y funcionales.</p>
+            <button class="search-card-button" data-propiedad-tipo=Proyectos>Buscar Proyectos</button>
+          </div>
+          <div class="search-card">
+
+            <span class="material-symbols-outlined">
+              storefront
+              </span>
+            <p class="search-card-title">Locales</p>
+            <div class="line"></div>
+            <p class="search-card-description">Tenemos locales comerciales disponibles para tu negocio. Ubicaciones estratégicas, espacios versátiles y visibilidad para que puedas alcanzar el éxito empresarial.</p>
+            <button class="search-card-button" data-propiedad-tipo=Locales>Buscar Locales</button>
+          </div>
+          <div class="search-card">
+
+            <span class="material-symbols-outlined">
+              attach_money
+              </span>
+            <p class="search-card-title">Tasación</p>
+            <div class="line"></div>
+            <p class="search-card-description">Contamos con servicios de tasación profesional. Obtén evaluaciones precisas y confiables para tomar decisiones informadas sobre compra, venta o inversión inmobiliaria.</p>
+            <button onclick="redirectToSection()" class="tasacion-card-button">Consultar por Tasaciones</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+
+  <% include ./ejs/footer %>
+
+  <script src=" https://cdn.jsdelivr.net/npm/swiper@9.3.2/swiper-bundle.min.js"></script>
+  <script>
+
+      const swipers = Array.from(document.querySelectorAll('.swiper'));
+
+      swipers.forEach(swiper => {
+          new Swiper(swiper, {
+              // Configuración de Swiper para cada swiper individual
+              direction: 'horizontal',
+              loop: true,
+              // ... otras opciones
+              // If we need pagination
+              pagination: {
+                  el: swiper.querySelector('.swiper-pagination'),
+              },
+
+              // Navigation arrows
+              navigation: {
+                  nextEl: swiper.querySelector('.swiper-button-next'),
+                  prevEl: swiper.querySelector('.swiper-button-prev'),
+              },
+
+              // And if we need scrollbar
+              scrollbar: {
+                  el: swiper.querySelector('.swiper-scrollbar'),
+              },
+          });
+      });
+
+  </script>
+
+  <script src="/javascripts/index.js"></script>
+  <script src="/javascripts/propiedades.js"></script>
+
+</body>
+
+
+
+</html>

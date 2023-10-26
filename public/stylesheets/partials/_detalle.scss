@@ -1,0 +1,96 @@
+.card-propiedad {
+    margin-bottom: 50px;
+
+    .swiper {
+        width: 80vw;
+        // aspect-ratio: 9/9;
+        height: 600px;
+        margin: auto;
+
+        .swiper-button-prev {
+            --swiper-navigation-size: 20px;
+            color: white;
+        }
+
+        /* Estilos para la flecha de navegación siguiente */
+        .swiper-button-next {
+            --swiper-navigation-size: 20px;
+            color: white;
+        }
+    }
+
+    .card-descripcion-wrapper {
+        display: flex;
+        flex-direction: column;
+        // box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        max-width: 80%;
+        margin: auto;
+        margin-top: 15px;
+        padding: 10px;
+
+
+        .card-propiedad-description-name{
+            font-size: 2rem;
+            font-weight: 500;
+            margin-left: 0;
+        }
+
+        .card-propiedad-description-price{
+            font-weight: 300;
+        }
+        .card-propiedad-description-specs{
+
+            text-indent: 20px;
+            white-space: pre-line;
+        }
+
+
+
+
+        p {
+            
+            margin: 15px;
+            font-size: 1.3rem;
+            font-weight: 100;
+            text-align: justify;
+        }
+
+    }
+
+    .wraper {
+        width: 90%;
+        margin: auto;
+
+        .descripcion-wraper {
+            margin-bottom: 0;
+        }
+    }
+
+
+
+}
+
+.mapa {
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (max-width : 900px) {
+    .card-propiedad{
+        flex-direction: column;
+
+        .card-descripcion-wrapper{
+            max-width: none;
+        }
+
+        .swiper{
+            min-width: 90%;
+        }
+
+
+        .wraper{
+            min-width: 90%;
+            margin: auto;
+        }
+    }
+}

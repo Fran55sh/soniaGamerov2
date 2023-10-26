@@ -1,0 +1,115 @@
+.cover {
+  background-image: linear-gradient(rgb(62, 64, 149, 0.7),
+      rgb(62, 64, 149, 0.7)),
+    url(../../images/backgr.webp);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100vw;
+  min-height: 165vh;
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: transparent;
+    flex-wrap: wrap;
+
+    .logo {
+      width: 80%;
+
+      img {
+        height: 100px;
+        margin: 10px;
+      }
+    }
+
+    .menu {
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+
+
+      li {
+        margin: 0 20px;
+        display: block;
+        background: transparent;
+        margin: 0;
+        padding: 10px;
+        list-style: none;
+      }
+
+      a {
+        font-family: "Open Sans", sans-serif;
+        text-decoration: none;
+        color: white;
+        font-weight: 400;
+        font-size: 18px;
+        transition: all 0.3s ease-in-out;
+      }
+
+      a:hover {
+        color: #ff0000;
+      }
+    }
+
+    input:checked~ul {
+      opacity: 1;
+    }
+
+    input {
+      display: none;
+    }
+
+    label {
+      box-sizing: border-box;
+      display: inline-block;
+      border: 1px solid white;
+      border-radius: 5px;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      font-weight: bold;
+      text-align: center;
+      user-select: none;
+      font-size: 1.2rem;
+      color: white;
+    }
+
+
+
+  }
+}
+
+@media screen and (min-width: 900px) {
+
+  /* Estilos que se aplicarán cuando el ancho de la pantalla sea mayor a 900px */
+  .cover {
+
+    min-height: 100vh;
+    .nav {
+
+      .logo {
+        width: 10%;
+      }
+
+      input {
+        display: none;
+      }
+
+      label {
+        display: none;
+      }
+
+      .menu {
+        opacity: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+}

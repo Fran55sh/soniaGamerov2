@@ -1,0 +1,129 @@
+.central {
+    font-family: $font-principal;
+    margin: auto;
+
+    .presentacion {
+        padding: 80px;
+        padding-top: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+
+        .phone {
+            display: flex;
+            width: fit-content;
+            padding: 10px;
+            color: white;
+            align-items: center;
+            background-color: $color-secundario;
+
+
+            .material-symbols-outlined {
+                text-align: center;
+                font-variation-settings:
+                    'FILL' 50,
+                    'wght' 200,
+                    'GRAD' 0,
+                    'opsz' 100
+            }
+
+
+        }
+
+        .title,
+        .subtitle {
+            color: white;
+        }
+
+        .title {
+            font-size: 5rem;
+            font-weight: 500;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            text-align: center;
+            font-weight: 100;
+        }
+
+        button {
+            font-family: $font-principal;
+            font-weight: 500;
+            letter-spacing: 1px;
+            font-size: 1rem;
+            background-color: white;
+            color: $color-secundario;
+            padding: 15px 30px 15px 30px;
+        }
+    }
+
+    .contacto{
+        margin: auto;
+        width: 95%;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 0 40px 0;
+
+
+        h2, h3{
+            color: $color-principal;
+            font-weight: 100;
+            font-size: 1.5rem;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            .forms{
+                
+                margin: 15px;
+                padding: 20px;
+                border: solid 2px $color-secundario;
+                font-family: $font-principal;
+                font-size: 1.2rem;
+            }
+
+            .form-button{
+                background: $color-principal;
+                margin: 10px 50px 13px 15px;
+                padding: 13px;
+                align-self: baseline;
+                color: white;
+                font-family: $font-principal;
+                font-size: 1.15rem;
+                font-weight: 100;
+            }
+            
+        }
+    }
+
+}
+
+@media screen and (min-width: 900px) {
+
+
+    .central{
+        display: flex;
+        max-width: 80%;
+        padding-top: 60px;
+
+        .presentacion{
+            align-items: flex-start;
+
+            .subtitle{
+                text-align: left;
+                max-width: 80%;
+            }
+        }
+
+        .contacto{
+            width: 50%;
+            padding: 40px 0 40px 0;
+        }
+    }
+}

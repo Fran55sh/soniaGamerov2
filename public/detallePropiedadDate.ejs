@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<% include ./ejs/head %>
+
+    <body>
+
+
+
+        <% if (propiedad===null) { %>
+            <div class="cover" id="coverPropiedades" style="height: 100vh;">
+                <% include ./ejs/header %>
+
+                    <h1 style="color:white; display: flex; justify-content: center; align-items: center;">Esta propiedad
+                        no existe
+                    </h1>
+
+                    <% } else {%>
+                        <div class="cover" id="coverPropiedades">
+                            <% include ./ejs/header %>
+                                <div class="coverPropiedadesText"></div>
+                        </div>
+
+                        <div class="card-propiedad">
+
+                            <div class="contenido">
+
+
+
+                                <div class="swiper">
+                                    <div class="swiper-wrapper">
+                                        <% propiedad[0].fotoDates.forEach(foto=> { %>
+                                            <div class="swiper-slide">
+                                                <img class="swiper-slide-img"
+                                                    src="/images/propiedades/<%= foto.nombre %>" alt="">
+                                            </div>
+                                            <% }) %>
+
+                                    </div>
+                                    <!-- If we need navigation buttons -->
+                                    <div class="swiper-button-prev"></div>
+                                    <div class="swiper-button-next"></div>
+                                </div>
+                                
+
+                                <!-- inicio calendario -->
+
+                                <!-- <div class="wrapper-calendar">
+                                    <p style="font-size: 1.45rem; font-weight: 500; text-align: center;">Disponibilidad</p>
+                                    <div class="header">
+                                        <p class="current-date"></p>
+                                        <div class="icons">
+                                            <span id="prev" class="material-symbols-rounded">chevron_left</span>
+                                            <span id="next" class="material-symbols-rounded">chevron_right</span>
+                                        </div>
+                                    </div>
+                                    <div class="calendar">
+                                        <ul class="weeks">
+                                            <li>Dom</li>
+                                            <li>Lun</li>
+                                            <li>Mar</li>
+                                            <li>Mie</li>
+                                            <li>Jue</li>
+                                            <li>Vie</li>
+                                            <li>Sab</li>
+                                        </ul>
+                                        <ul class="days"></ul>
+                                    </div>
+                                </div> -->
+                            </div>
+
+                            <!-- fin calendario  -->
+
+                            <!-- inicio div wrapper -->
+
+                            <div class="wraper">
+                               
+                                <div class="card-descripcion-wrapper">
+                                    <p class="card-propiedad-description-name">
+                                        <%= propiedad[0].nombre %>
+                                    </p>
+
+                                    <div class="card-propiedad-description">
+                                        <p class="card-propiedad-description-price">
+                                            Precio: USD <%= propiedad[0].precio %>
+                                        </p>
+                                        <h2 style="font-weight: 100;"> Detalles</h2>
+                                        <p class="card-propiedad-description-specs">
+                                            <%= propiedad[0].descripcion %>
+                                        </p>
+                                    </div>
+                                    <hr>
+                                    <h2 style="font-weight: 100;">Caracteristicas</h2>
+                                    <p class="card-propiedad-description-specs">
+                                        <%= propiedad[0].descripcioncorta %>
+                                    </p>
+                                </div>
+                                
+                                <div class="reserva">
+                                        <div class="fechas">
+                                            <input type="text" name="daterange" id="daterange" />
+                                        </div>
+                                    
+                                    <div class="checkin">
+                                        <div class="starEndDays" style="display: flex; justify-content: space-between; padding: 5px;">
+                                            
+                                            <p style="padding: 5px;">In: <span class="in" id="checkin-date"></span> </p>
+                                            <p style="padding: 5px;"">Out: <span class="out" id="checkout-date"> </span></p>
+
+                                        </div>
+                                        <div class="precioDia">Precio por dia: <%= propiedad[0].precio %></div>
+                                        <p>Total: <span id="total-price"><%= propiedad[0].precio %> </span></p>
+                                        <button class="reservar" onclick="reservar()">Reservar</button>
+                                    </div>
+                                </div>
+                            </div>  
+                            <!-- fin div wrapper -->
+
+                            <div class="mapa">
+                                <%- unescape(propiedad[0].mapa.trim()) %>
+                            </div>
+                        </div>
+
+                        <% include ./ejs/footer %>
+                            <% } %>
+
+            
+
+                                <script src=" https://cdn.jsdelivr.net/npm/swiper@9.3.2/swiper-bundle.min.js"></script>
+                                <script>
+
+                                    const swipers = Array.from(document.querySelectorAll('.swiper'));
+
+                                    swipers.forEach(swiper => {
+                                        new Swiper(swiper, {
+                                            // Configuración de Swiper para cada swiper individual
+                                            direction: 'horizontal',
+                                            loop: true,
+                                            // ... otras opciones
+                                            // If we need pagination
+                                            pagination: {
+                                                el: swiper.querySelector('.swiper-pagination'),
+                                            },
+
+                                            // Navigation arrows
+                                            navigation: {
+                                                nextEl: swiper.querySelector('.swiper-button-next'),
+                                                prevEl: swiper.querySelector('.swiper-button-prev'),
+                                            },
+
+                                            // And if we need scrollbar
+                                            scrollbar: {
+                                                el: swiper.querySelector('.swiper-scrollbar'),
+                                            },
+                                        });
+                                    });
+
+
+
+                                </script>
+
+                                <script src="javascripts/index.js"></script>
+                                <script src="/javascripts/calendar.js"></script>
+
+
+
+    </body>
+
+</html>

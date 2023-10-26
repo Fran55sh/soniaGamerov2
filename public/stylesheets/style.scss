@@ -1,0 +1,42 @@
+@import "./partials/variables";
+@import "./partials/header";
+@import "./partials/central";
+@import "./partials/cards";
+@import "./partials/about";
+@import "./partials/search";
+@import "./partials/footer";
+@import "./partials/restricted";
+@import "./partials/propiedades";
+@import "./partials/detalle";
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    // border: solid red 5px
+    font-family: $font-principal;
+
+    
+}
+
+.cover, .about-cover,.search-cover{
+max-width: 100%;
+}
+
+html{
+
+    scroll-behavior: smooth;
+}
+
+body{
+    font-family: $font-principal;
+    // background-color: #ededed;
+    ededed
+    button{
+        border:none;
+    }
+
+    iframe{
+        width: 70vw;
+    }
+}
