@@ -150,6 +150,7 @@
                                         </div>
                                         <div class="precioDia">Precio por dia: <%= propiedad[0].precio %></div>
                                         <p>Total: <span id="total-price"><%= propiedad[0].precio %> </span></p>
+                                        <p>Total Reserva: <span id="reserv-price"><%= Math.round(propiedad[0].precio*(propiedad[0].reserva/100)) %> </span></p>
                                         <button class="reservar" onclick="reservar()">Reservar</button>
                                     </div>
                                 </div>

@@ -138,7 +138,7 @@ $(function () {
         console.log(totalDays, totalPrice);
 
         document.getElementById("total-price").textContent = totalPrice;
-        
+        document.getElementById("reserv-price").textContent = Math.round(totalPrice*(propiedad[0].reserva/100));
         
         
         console.log(selectedDates);

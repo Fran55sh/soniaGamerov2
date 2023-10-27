@@ -833,7 +833,17 @@ footer{
   .card-propiedad .wraper {
     min-width: 90%;
     margin: auto;
+    flex-direction: column-reverse;
   }
+  
+  .wraper .reserva{
+    width: 100%;
+  }
+
+  .wraper .reserva #datarange{
+    justify-content: space-around;
+  }
+ 
 }
 * {
   box-sizing: border-box;

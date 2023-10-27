@@ -168,6 +168,11 @@ const propiedadesDateModel = sequelize.define(
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    reserva: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: false,
+    },
   },
   {
     // timestamps: false,
