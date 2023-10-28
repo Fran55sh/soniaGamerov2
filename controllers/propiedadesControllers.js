@@ -504,8 +504,12 @@ class Propiedades {
   static async deleteReservas(req, res) {
     // Obtener los datos del formulario (si los hay)
 
-    const datosDinamicos = req.params; // Suponiendo que los datos se envían en el cuerpo de la solicitud POST
-  console.log(datosDinamicos)
+    const params = req.params; // Suponiendo que los datos se envían en el cuerpo de la solicitud POST
+    const propiedad = await propiedadesDateModel.findAll({
+      where: {id: params.id }, // Filtra por ID de propiedad
+      
+    });
+    console.log(propiedad[0].reserva)
     // Definir el mensaje de correo electrónico con datos dinámicos
     const mailOptions = {
       from: 'tu_correo@gmail.com',
@@ -513,9 +517,10 @@ class Propiedades {
       subject: 'Correo con datos dinámicos',
       text: `Hola,
   
-      Nombre: ${datosDinamicos.nombre}
-      Edad: ${datosDinamicos.edad}
-      Ciudad: ${datosDinamicos.ciudad}
+      Nombre: ${propiedad[0].nombre}
+      Descripcion: ${propiedad[0].descripcion}
+      Ciudad: ${propiedad[0].ciudad}
+      Valor Reserva: ${Math.round((propiedad[0].precio))*propiedad[0].reserva/100}
   
       Estos son los datos dinámicos que querías incluir en tu correo.
   

@@ -164,6 +164,7 @@ async function reservar(){
     id: id,
     valor: valor
   };
+  console.log(datos)
 // Realiza la solicitud utilizando fetch
 await fetch(`/api/propiedadesDate/reservar/${id}/${valor}`, {
   method: 'POST',
