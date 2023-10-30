@@ -4,6 +4,7 @@ let fechasCoincidentes = [];
 let propiedad = []
 
 
+
 document.getElementById("checkin-date").textContent =
           moment().format('DD/MM/YYYY');
         document.getElementById("checkout-date").textContent =
@@ -157,16 +158,60 @@ $(function () {
 
 });
 async function reservar(){
-  
+  const nombre = document.getElementById('nombre').value;
+  const email = document.getElementById('email').value;
+  const telefono = document.getElementById('telefono').value;
   const id = propiedad[0].id;
   const valor = fechasCoincidentes;
+     // Comprobaciones
+     if (!nombre) {
+      alert('Por favor, ingrese un nombre válido.');
+      return;
+  }
+  if (!telefono) {
+    alert('Por favor, ingrese un telefono válido.');
+    return;
+}
+
+  if (!/\S+@\S+\.\S+/.test(email)) {
+      alert('Por favor, ingrese un correo electrónico válido.');
+      return;
+  }
+  if (!telefono.match(/^\d{10}$/)) {
+    alert('Por favor, ingrese un número de teléfono válido (debe tener 10 dígitos).');
+    return;
+}
+
+  if (valor.length < 1) {
+      alert('Por favor, seleccione una fecha.');
+      return;
+  }
+  
+  
+  // Genera un código de identificación único para la reserva
+  function generarCodigoReserva(nombreCliente) {
+    const fechaReserva = new Date(); // Obtiene la fecha actual al momento de la reserva
+    
+    const nombreSinEspacios = nombreCliente.replace(/\s/g, ''); // Elimina los espacios del nombre del cliente
+    const fechaFormateada = fechaReserva.toISOString().replace(/-|:|\.\d+/g, ''); // Formatea la fecha como una cadena sin caracteres especiales
+    
+    const codigoUnico = nombreSinEspacios.slice(0, 3) + fechaFormateada; // Combina los primeros 3 caracteres del nombre con la fecha formateada
+    return codigoUnico;
+  }
+  
+  let codigoUnico = generarCodigoReserva(nombre)
+  
   const datos = {
-    id: id,
-    valor: valor
+    id,
+    valor,
+    nombre,
+    email,
+    telefono,
+    codigoUnico
+
   };
-  console.log(datos)
 // Realiza la solicitud utilizando fetch
-await fetch(`/api/propiedadesDate/reservar/${id}/${valor}`, {
+await fetch(`/api/propiedadesDate/reservar`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'

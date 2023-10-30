@@ -1,211 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <% include ./ejs/head %>
 
     <body>
-
-
-
         <% if (propiedad===null) { %>
-            <div class="cover" id="coverPropiedades" style="height: 100vh;">
+            <div class="cover" id="coverPropiedades" style="height: 100vh">
                 <% include ./ejs/header %>
-
-                    <h1 style="color:white; display: flex; justify-content: center; align-items: center;">Esta propiedad
-                        no existe
+                    <h1 style="
+          color: white;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        ">
+                        Esta propiedad no existe
                     </h1>
+            </div>
 
-                    <% } else {%>
-                        <div class="cover" id="coverPropiedades">
-                            <% include ./ejs/header %>
-                                <div class="coverPropiedadesText"></div>
-                        </div>
+            <% } else {%>
+                <div class="cover" id="coverPropiedades">
+                    <% include ./ejs/header %>
+                        <div class="coverPropiedadesText"></div>
+                </div>
 
-                        <div class="card-propiedad">
-
-                            <div class="contenido">
-
-
-
-                                <div class="swiper">
-                                    <div class="swiper-wrapper">
-                                        <% propiedad[0].fotoDates.forEach(foto=> { %>
-                                            <div class="swiper-slide">
-                                                <img class="swiper-slide-img"
-                                                    src="/images/propiedades/<%= foto.nombre %>" alt="">
-                                            </div>
-                                            <% }) %>
-
+                <div class="card-propiedad">
+                    <div class="contenido">
+                        <div class="swiper mySwiper">
+                            <div class="swiper-wrapper">
+                                <% propiedad[0].fotoDates.forEach(foto=> { %>
+                                    <div class="swiper-slide">
+                                        <img class="swiper-slide-img" src="/images/propiedades/<%= foto.nombre %>"
+                                            alt="" />
                                     </div>
-                                    <!-- If we need navigation buttons -->
-                                    <div class="swiper-button-prev"></div>
-                                    <div class="swiper-button-next"></div>
+                                    <% }) %>
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+
+                    <!-- inicio div wrapper -->
+
+                    <div class="wraper">
+                        <div class="wrapper1">
+                            <div class="card-descripcion-wrapper">
+                                <p class="card-propiedad-description-name">
+                                    <%= propiedad[0].nombre %>
+                                </p>
+                                <div class="card-propiedad-description">
+                                    <p class="card-propiedad-description-specs">
+                                        <%= propiedad[0].descripcion %>
+                                    </p>
                                 </div>
-                                
                             </div>
 
-                            <!-- fin calendario  -->
-
-                            <!-- inicio div wrapper -->
-
-                            <div class="wraper">
-                                <div class="wrapper1">
-                                    <div class="card-descripcion-wrapper">
-                                        <p class="card-propiedad-description-name">
-                                            <%= propiedad[0].nombre %>
+                            <div class="card-descripcion-wrapper">
+                                <p>
+                                    <b>Tipo de Propiedad:</b>
+                                    <%= propiedad[0].tipo.nombre %>
+                                </p>
+                                <p>
+                                    <b>Distancia al mar:</b>
+                                    <%= propiedad[0].distanciaAlMar %>
+                                </p>
+                                <p>
+                                    <b>Distancia al centro:</b>
+                                    <%= propiedad[0].distanciaAlCentro %>
+                                </p>
+                                <p>
+                                    <b>Cantidad de personas</b> : <%= propiedad[0].cantidadPersonas %>
+                                </p>
+                                <p>
+                                    <b>Ambientes:</b>
+                                    <%= propiedad[0].cantidadAmbientes %>
+                                </p>
+                            </div>
+                            <div class="card-descripcion-wrapper">
+                                <p class="card-propiedad-description-name" style="border-bottom: 1px solid #e7eff9;">Servicios</p>
+                                <br>
+                                <div class="servicios" >
+                                    <% const servicios=[ { nombre: 'Wifi' , valor: propiedad[0].wifi }, { nombre: 'Tv' ,
+                                        valor: propiedad[0].tv }, { nombre: 'Cochera' , valor: propiedad[0].cochera }, {
+                                        nombre: 'Mascotas' , valor: propiedad[0].mascotas }, { nombre: 'Pileta' , valor:
+                                        propiedad[0].pileta }, { nombre: 'Con Blanco' , valor: propiedad[0].conBlanco },
+                                        { nombre: 'Lavarropa' , valor: propiedad[0].lavarropa }, { nombre: 'Parrilla' ,
+                                        valor: propiedad[0].parrilla } ]; servicios.forEach(servicio=> { %>
+                                        <p>
+                                            <b>
+                                                <%= servicio.nombre %>:
+                                            </b><span class="material-symbols-outlined">
+                                                <%= servicio.valor ? 'check_box' : 'disabled_by_default' %>
+                                            </span>
                                         </p>
-    
-                                        <div class="card-propiedad-description">
-                                            <p class="card-propiedad-description-specs">
-                                                <%= propiedad[0].descripcion %>
-                                            </p>
-                                        </div>
-                                    </div>
-    
-                                    <div class="card-descripcion-wrapper">
-                                        <p> <b>Tipo de Propiedad:</b>  <%= propiedad[0].tipo.nombre %> </p>
-                                        <p> <b>Distancia al mar:</b>  <%= propiedad[0].distanciaAlMar %> </p>
-                                        <p> <b>Distancia al centro:</b>  <%= propiedad[0].distanciaAlCentro %> </p>
-                                        <p> <b>Cantidad de personas</b> : <%= propiedad[0].cantidadPersonas %> </p>
-                                        <p> <b>Ambientes:</b>  <%= propiedad[0].cantidadAmbientes %> </p>
-                                    </div> 
-                                    <div class="card-descripcion-wrapper">
-                                        <p class="card-propiedad-description-name">
-                                           Servicios
-                                        </p>
-                                        <div class="servicios">
-
-                                            <% if (propiedad[0].wifi) { %>
-                                                <p> <b>Wifi:</b><span class="material-symbols-outlined">check_box</span></p>
-                                            <% }else {%>
-                                                <p><b>Wifi:</b> <span class="material-symbols-outlined">disabled_by_default</span>
-                                                <% } %>
-                                                    
-                                            <% if (propiedad[0].tv) { %>
-                                                <p> <b>Tv:</b>  <span class="material-symbols-outlined">check_box</span></p>
-                                            <% }else {%>
-                                                <p><b>Tv:</b> <span class="material-symbols-outlined">disabled_by_default</span>
-                                                <% } %>
-                                                
-                                            <% if (propiedad[0].cochera) { %>
-                                                <p><b>Cochera:</b> <span class="material-symbols-outlined">check_box</span></p>
-                                            <% }else {%>
-                                                <p><b>Cochera:</b> <span class="material-symbols-outlined">disabled_by_default</span>
-                                            <% } %>    
-    
-                                            <% if (propiedad[0].mascotas) { %>
-                                                <p><b>Masctoas:</b> <span class="material-symbols-outlined">check_box</span></p>
-                                            <% }else {%>
-                                                <p><b>Masctoas:</b> <span class="material-symbols-outlined">disabled_by_default</span>
-                                            <% } %>
-    
-                                            <% if (propiedad[0].pileta) { %>
-                                                <p><b>Pileta:</b> <span class="material-symbols-outlined">check_box</span></p>
-                                            <% }else {%>
-                                                <p><b>Pileta:</b> <span class="material-symbols-outlined">disabled_by_default</span>
-                                                <% } %>
-                                                    
-                                            <% if (propiedad[0].conBlanco) { %>
-                                                <p><b>Con Blanco</b>: <span class="material-symbols-outlined">check_box</span></p>
-                                            <% }else {%>
-                                                <p><b>Con Blanco:</b> <span class="material-symbols-outlined">disabled_by_default</span>
-                                                <% } %>
-                                                
-                                            <% if (propiedad[0].lavarropa) { %>
-                                                <p><b>Lavarropa:</b> <span class="material-symbols-outlined">check_box</span></p>
-                                            <% }else {%>
-                                                <p><b>Lavarropa:</b> <span class="material-symbols-outlined">disabled_by_default</span>
-                                            <% } %>    
-    
-                                            <% if (propiedad[0].parrilla) { %>
-                                                <p><b>Parrilla:</b> <span class="material-symbols-outlined">check_box</span></p>
-                                            <% }else {%>
-                                                <p><b>Parrilla:</b> <span class="material-symbols-outlined">disabled_by_default</span>
-                                            <% } %>
-                                        </div>
-
-                                    </div>       
-
+                                        <% }); %>
                                 </div>
-                                
+                            </div>
+                        </div>
 
+                        <div class="reserva">
+                            <div class="fechas">
+                                <input type="text" name="daterange" id="daterange" />
+                            </div>
 
-                                <div class="reserva">
-                                        <div class="fechas">
-                                            <input type="text" name="daterange" id="daterange" />
-                                        </div>
+                            <div class="checkin">
+                                <div class="starEndDays" style="display: flex; justify-content: space-between; padding: 5px; ">
+                                    <p style="padding: 5px">
+                                        In: <span class="in" id="checkin-date"></span>
+                                    </p>
+                                    <p style="padding: 5px">
+                                        Out: <span class="out" id="checkout-date"> </span>
+                                    </p>
+                                </div>
+                                <div class="precioDia">
+                                    Precio por dia: <%= propiedad[0].precio %>
+                                </div>
+                                <p>
+                                    Total: <span id="total-price">
+                                        <%= propiedad[0].precio %>
+                                    </span>
+                                </p>
+                                <p>
+                                    Total Reserva:
+                                    <span id="reserv-price">
+                                        <%= Math.round(propiedad[0].precio*(propiedad[0].reserva/100)) %>
+                                    </span>
+                                </p>
+
+                                <form action="/ruta-de-destino" method="POST">
+                                    <label for="nombre">Nombre:</label><br />
+                                    <input type="text" id="nombre" name="nombre" required placeholder="Nombre" /><br /><br />
+
+                                    <label for="nombre">Telefono:</label><br />
+                                    <input type="text" id="telefono" name="telefono" required placeholder="2914896525"/><br /><br />
                                     
-                                    <div class="checkin">
-                                        <div class="starEndDays" style="display: flex; justify-content: space-between; padding: 5px;">
-                                            
-                                            <p style="padding: 5px;">In: <span class="in" id="checkin-date"></span> </p>
-                                            <p style="padding: 5px;">Out: <span class="out" id="checkout-date"> </span></p>
+                                    <label for="email">Email:</label><br />
+                                    <input type="email" id="email" name="email" required placeholder="email@email.com"/><br /><br />
+                                </form>
 
-                                        </div>
-                                        <div class="precioDia">Precio por dia: <%= propiedad[0].precio %></div>
-                                        <p>Total: <span id="total-price"><%= propiedad[0].precio %> </span></p>
-                                        <p>Total Reserva: <span id="reserv-price"><%= Math.round(propiedad[0].precio*(propiedad[0].reserva/100)) %> </span></p>
-                                        <button class="reservar" onclick="reservar()">Reservar</button>
-                                    </div>
-                                </div>
-                            </div>  
-                            <!-- fin div wrapper -->
-
-                            <div class="mapa">
-                                <%- unescape(propiedad[0].mapa.trim()) %>
+                                <button class="reservar" onclick="reservar()">Reservar</button>
                             </div>
                         </div>
+                    </div>
 
-                        <% include ./ejs/footer %>
-                            <% } %>
+                    <!-- fin div wrapper -->
 
-            
+                    <div class="mapa"><%- unescape(propiedad[0].mapa.trim()) %></div>
+                </div>
 
-                                <script src=" https://cdn.jsdelivr.net/npm/swiper@9.3.2/swiper-bundle.min.js"></script>
-                                <script>
+                <% include ./ejs/footer %>
+                    <% } %>
 
-                                    const swipers = Array.from(document.querySelectorAll('.swiper'));
+                        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+                        <script>
+                            var swiper = new Swiper(".mySwiper", {
+                                slidesPerView: "1",
+                                centeredSlides: true,
+                                spaceBetween: 0,
+                                loop: true,
+                                pagination: {
+                                    el: ".swiper-pagination",
+                                    clickable: true,
+                                },
+                                breakpoints: {
+                                    900: {
+                                        slidesPerView: 2,
+                                        spaceBetween: 0,
+                                        loop: true,
+                                        pagination: {
+                                            el: ".swiper-pagination",
+                                            clickable: true,
+                                        },
+                                        centeredSlides: true,
+                                    },
+                                    1600: {
+                                        slidesPerView: 3,
+                                        spaceBetween: 0,
+                                        loop: true,
+                                        pagination: {
+                                            el: ".swiper-pagination",
+                                            clickable: true,
+                                        },
+                                        centeredSlides: true,
+                                    },
+                                },
+                            });
+                        </script>
 
-                                    swipers.forEach(swiper => {
-                                        new Swiper(swiper, {
-                                            // Configuración de Swiper para cada swiper individual
-                                            direction: 'horizontal',
-                                            loop: true,
-                                            // ... otras opciones
-                                            // If we need pagination
-                                            pagination: {
-                                                el: swiper.querySelector('.swiper-pagination'),
-                                            },
-
-                                            // Navigation arrows
-                                            navigation: {
-                                                nextEl: swiper.querySelector('.swiper-button-next'),
-                                                prevEl: swiper.querySelector('.swiper-button-prev'),
-                                            },
-
-                                            // And if we need scrollbar
-                                            scrollbar: {
-                                                el: swiper.querySelector('.swiper-scrollbar'),
-                                            },
-                                        });
-                                    });
-
-
-
-                                </script>
-
-                                <script src="javascripts/index.js"></script>
-                                <script src="/javascripts/calendar.js"></script>
-
-
-
+                        <script src="javascripts/index.js"></script>
+                        <script src="/javascripts/calendar.js"></script>
     </body>
 
 </html>

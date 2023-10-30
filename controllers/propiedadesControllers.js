@@ -13,29 +13,10 @@ const {
   fechaModel,
 } = require("../db/config");
 const { getTipoId, getCondicionId } = require("../helpers/getTiposConditions");
-const nodemailer = require('nodemailer');
 
-
-
-let storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "public/images/propiedades"));
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + "_" + file.originalname);
-  },
-});
+const {fechaLimite, storage, transporter} = require ("../helpers/helpers")
 
 const upload = multer({ storage: storage });
-
-
-let transporter = nodemailer.createTransport({
-  service: 'gmail', // Configura tus detalles de servidor SMTP o autenticación según tu caso
-  auth: {
-    user: 'corvattafranco@gmail.com', // Tu dirección de correo electrónico
-    pass: 'bcut iauk gune qjuw', // Tu contraseña
-  },
-});
 
 
 class Propiedades {
@@ -66,10 +47,6 @@ class Propiedades {
     }
   }
 
-
-  
-    
-  
 
   static async getPropiedadesById(req, res) {
     const id = req.params.id;
@@ -102,6 +79,7 @@ class Propiedades {
       res.status(500).json({ error: "Error al obtener la propiedad" });
     }
   }
+
 
   static async getPropiedadesByTipo(req, res) {
     const tipo = req.params.dato;
@@ -393,8 +371,6 @@ class Propiedades {
 
   static async getPropiedadesDateByIdJson(req, res) {
     const id = req.params.id;
-    console.log(id);
-    console.log("ando por aca ");
     try {
       // Obtiene todas las propiedades con sus relaciones
       const propiedad = await propiedadesDateModel.findAll({
@@ -498,34 +474,41 @@ class Propiedades {
   }
 
 
-  // Configurar el transporte de correo
-
 
   static async deleteReservas(req, res) {
     // Obtener los datos del formulario (si los hay)
 
-    const params = req.params; // Suponiendo que los datos se envían en el cuerpo de la solicitud POST
+    const body = req.body; // Suponiendo que los datos se envían en el cuerpo de la solicitud POST
     const propiedad = await propiedadesDateModel.findAll({
-      where: {id: params.id }, // Filtra por ID de propiedad
+      where: {id: body.id }, // Filtra por ID de propiedad
       
     });
-    console.log(propiedad[0].reserva)
     // Definir el mensaje de correo electrónico con datos dinámicos
     const mailOptions = {
       from: 'tu_correo@gmail.com',
-      to: 'corvattafranco@gmail.com', // Cambia esto al correo del destinatario
-      subject: 'Correo con datos dinámicos',
-      text: `Hola,
-  
-      Nombre: ${propiedad[0].nombre}
-      Descripcion: ${propiedad[0].descripcion}
-      Ciudad: ${propiedad[0].ciudad}
-      Valor Reserva: ${Math.round((propiedad[0].precio))*propiedad[0].reserva/100}
-  
-      Estos son los datos dinámicos que querías incluir en tu correo.
-  
-      Saludos,
-      Tu Nombre`,
+      to: 'corvattafranco@gmail.com',
+      subject: 'Confirmación de reserva',
+      html: `
+      
+
+      Gracias por elegir nuestro servicio! Este correo es para confirmar que hemos recibido tu reserva para la propiedad ${propiedad[0].nombre} en la ciudad de ${propiedad[0].ciudad}. Para asegurar tu reserva, te pedimos que realices un depósito en la siguiente cuenta bancaria:<br>
+      <br>
+      Número de cuenta: ${propiedad[0].Cuenta}<br>
+      ${propiedad[0].alias ? `Alias: ${propiedad[0].alias}<br>` : ''} 
+      Nombre del titular: ${propiedad[0].titular}<br>
+      Monto a depositar: ${Math.round((propiedad[0].precio))*propiedad[0].reserva/100}<br>
+      Monto Restante: ${propiedad[0].precio - Math.round((propiedad[0].precio))*propiedad[0].reserva/100}<br>
+      <br>
+      Por favor, asegúrate de realizar el depósito antes de la fecha ${fechaLimite}. Una vez realizado el depósito, envíanos una confirmación por correo electrónico junto con los detalles de la transacción para verificar la reserva.<br>
+      <br>
+      Tu código de reserva es ${body.codigoUnico}. Con este código vas a poder hacernos consultas sobre el estado de tu reserva.<br>
+      Si tienes alguna pregunta o necesitas más información, no dudes en contactarnos!<br>
+      <br>
+      Saludos cordiales,<br>
+      <br>
+      Sonia Gamero Propiedades<br>
+      
+      `
     };
   
     // Enviar el correo electrónico

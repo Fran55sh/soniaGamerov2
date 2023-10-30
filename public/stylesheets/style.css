@@ -649,7 +649,7 @@ footer{
 .listed-properties .cards .card {
   background-color: transparent;
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: column;
   align-items: center;
   margin-top: 20px;
 }
@@ -730,7 +730,7 @@ footer{
     color: white;
   }
 }
-.swiper {
+/* .swiper {
   width: 90%;
   aspect-ratio: 16/10;
   -o-object-fit: cover;
@@ -742,14 +742,37 @@ footer{
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+} */
+
+.swiper {
+  width: 100%;
+  height: 100%;
 }
 
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.swiper-slide {
+  width: 60%;
+}
 .card-propiedad {
   margin-bottom: 50px;
   margin-top: 30px;
 }
 .card-propiedad .swiper {
-  width: 80vw;
   height: 600px;
   margin: auto;
   /* Estilos para la flecha de navegación siguiente */
@@ -768,6 +791,8 @@ footer{
   margin-top: 15px;
   padding: 10px;
   background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+    border-radius: 5px;
 }
 
 .wrapper1{
@@ -838,6 +863,8 @@ footer{
   
   .wraper .reserva{
     width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+    border-radius: 5px;
   }
 
   .wraper .reserva #datarange{
@@ -999,9 +1026,6 @@ body iframe {
   display: flex;
 }
 
-.swiper-slide-img{
-  padding: 20px;
-}
 
 .wrapper-calendar{
   margin-top: 20px;
@@ -1029,7 +1053,13 @@ body iframe {
   background-color: white;
   padding: 10px;
   width: 50%;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+    border-radius: 5px;
 
+}
+
+form{
+  padding: 10px;
 }
 
 .reservar{
@@ -1041,6 +1071,8 @@ body iframe {
     background-color: white;
     color: #ff0000;
     padding: 5px 10px 5px 10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+    border-radius: 5px;
 }
 
 .reserva .precioDia, p{

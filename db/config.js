@@ -173,6 +173,18 @@ const propiedadesDateModel = sequelize.define(
       allowNull: false,
       defaultValue: false,
     },
+    titular: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    alias: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    Cuenta: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
   },
   {
     // timestamps: false,
@@ -188,17 +200,6 @@ const fotoDateModel = sequelize.define('fotoDate', {
   // timestamps: false,
 });
 
-// const fechaModel = sequelize.define('fecha', {
-//   fecha: {
-//     type: DataTypes.DATEONLY, // Almacena solo la fecha (sin hora)
-//     allowNull: false,
-//   },  
-//   precio: { 
-//     type: DataTypes.DECIMAL(10, 2), // Decimal para el precio, ajusta según tus necesidades
-//     allowNull: false,
-//   },
-// })
-  
 
 const disponibilidadModel = sequelize.define(
   'disponibilidad',

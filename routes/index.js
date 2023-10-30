@@ -59,7 +59,7 @@ router.get('/api/propiedadesDateJson/:id', Propiedades.getPropiedadesDateByIdJso
 
 router.get('/api/fechas', Propiedades.getFechas)
 
-router.post('/api/propiedadesDate/reservar/:id/:valor',Propiedades.deleteReservas )
+router.post('/api/propiedadesDate/reservar',Propiedades.deleteReservas )
 
 //admin
 

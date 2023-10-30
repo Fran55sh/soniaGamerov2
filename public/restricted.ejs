@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
 <% include ./ejs/restrictedhead %>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
   <body class="restricted">
     <section class="crear-propiedad">
@@ -72,50 +76,87 @@
 
 
     <section class="crear-propiedad">
-      <div class="propiedad">
+      <div class="propiedad-temoral">
 
         <h1>Crear Propiedad Temporal</h1>
-        <form id="propiedadForm">
+        <form id="propiedadForm" action="/crearPropiedad" method="POST">
           <label for="nombre">Nombre:</label>
-          <input type="text" id="nombre" required><br><br>
-
+          <input type="text" id="nombre" name="nombre" required><br><br>
+  
           <label for="descripcion">Descripción:</label>
-          <textarea id="descripcion" required></textarea><br><br>
-
+          <textarea id="descripcion" name="descripcion" required></textarea><br><br>
+  
           <label for="descripcioncorta">Descripción Corta:</label>
-          <textarea id="descripcioncorta" required></textarea><br><br>
-
-          <label for="direccion">Direccion:</label>
-          <textarea id="direccion" required></textarea><br><br>
-
+          <textarea id="descripcioncorta" name="descripcioncorta" required></textarea><br><br>
+  
+          <label for="ciudad">Ciudad:</label>
+          <input type="text" id="ciudad" name="ciudad" required><br><br>
+  
+          <label for="provincia">Provincia:</label>
+          <input type="text" id="provincia" name="provincia" required><br><br>
+  
+          <label for="direccion">Dirección:</label>
+          <input type="text" id="direccion" name="direccion" required><br><br>
+  
           <label for="precio">Precio:</label>
-          <input type="number" id="precio" required><br><br>
-
+          <input type="text" id="precio" name="precio" required><br><br>
+  
+          <label for="wifi">Wifi:</label>
+          <input type="checkbox" id="wifi" name="wifi"><br><br>
+  
+          <label for="tv">TV:</label>
+          <input type="checkbox" id="tv" name="tv"><br><br>
+  
+          <label for="cochera">Cochera:</label>
+          <input type="checkbox" id="cochera" name="cochera"><br><br>
+  
+          <label for="mascotas">Mascotas:</label>
+          <input type="checkbox" id="mascotas" name="mascotas"><br><br>
+  
+          <label for="pileta">Pileta:</label>
+          <input type="checkbox" id="pileta" name="pileta"><br><br>
+  
+          <label for="conBlanco">Con Blanco:</label>
+          <input type="checkbox" id="conBlanco" name="conBlanco"><br><br>
+  
+          <label for="lavarropa">Lavarropa:</label>
+          <input type="checkbox" id="lavarropa" name="lavarropa"><br><br>
+  
+          <label for="parrilla">Parrilla:</label>
+          <input type="checkbox" id="parrilla" name="parrilla"><br><br>
+  
+          <label for="distanciaAlCentro">Distancia al Centro:</label>
+          <input type="text" id="distanciaAlCentro" name="distanciaAlCentro" required><br><br>
+  
+          <label for="distanciaAlMar">Distancia al Mar:</label>
+          <input type="text" id="distanciaAlMar" name="distanciaAlMar" required><br><br>
+  
+          <label for="esDestacado">¿Es Destacado?:</label>
+          <input type="checkbox" id="esDestacado" name="esDestacado"><br><br>
+  
+          <label for="cantidadPersonas">Cantidad de Personas:</label>
+          <input type="number" id="cantidadPersonas" name="cantidadPersonas" required><br><br>
+  
+          <label for="cantidadAmbientes">Cantidad de Ambientes:</label>
+          <input type="number" id="cantidadAmbientes" name="cantidadAmbientes" required><br><br>
+  
           <label for="mapa">Mapa:</label>
-          <input type="text" id="mapa" required><br><br>
-
-          <label for="esDestacado">Es destacado:</label>
-          <input type="checkbox" id="esDestacado"><br><br>
-
-          <label for="tipo">Tipo:</label>
-          <select id="tipo" required>
-            <option value="">Seleccione un tipo</option>
-            <option value="Casas">Casas</option>
-            <option value="Departamentos">Departamentos</option>
-            <option value="Fideicomisos">Fideicomisos</option>
-            <option value="Proyectos">Proyectos</option>
-            <option value="Locales">Locales</option>
-          </select><br><br>
-
-          <label for="condicion">Condición:</label>
-          <select id="condicion" required>
-            <option value="">Seleccione una condición</option>
-            <option value="Venta">Venta</option>
-            <option value="Alquiler">Alquiler</option>
-          </select><br><br>
-
-          <button type="submit">Crear</button>
-        </form>
+          <input type="text" id="mapa" name="mapa" required><br><br>
+  
+          <label for="reserva">Reserva:</label>
+          <input type="number" id="reserva" name="reserva" required><br><br>
+  
+          <label for="titular">Titular:</label>
+          <input type="text" id="titular" name="titular" required><br><br>
+  
+          <label for="alias">Alias:</label>
+          <input type="text" id="alias" name="alias"><br><br>
+  
+          <label for="Cuenta">Cuenta:</label>
+          <input type="text" id="Cuenta" name="Cuenta" required><br><br>
+  
+          <button type="submit">Crear Propiedad</button>
+      </form>
 
       </div>
       <div class="foto">
@@ -143,7 +184,15 @@
       </div>
     </section>
 
-    <h1>Lista de Propiedades</h1>
+  </body>
+  </html>
+ 
+  
+  
+  
+
+
+    <!-- <h1>Lista de Propiedades</h1>
 
     <div id="propiedades-container"></div>
 
@@ -171,7 +220,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
 
     <script>
