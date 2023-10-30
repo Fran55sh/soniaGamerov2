@@ -6,69 +6,83 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
+
+
+
   <body class="restricted">
-    <section class="crear-propiedad">
+    <section class="crear-propiedad" >
       <div class="propiedad">
 
         <h1>Crear Propiedad</h1>
-        <form id="propiedadForm">
-          <label for="nombre">Nombre:</label>
-          <input type="text" id="nombre" required><br><br>
+        <form id="propiedadForm" style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 20px;">
+          <div>
+              <!-- Contenido de la primera sección -->
+              <label for="nombre">Nombre:</label>
+              <input type="text" id="nombre" required><br><br>
+      
+              <label for="descripcion">Descripción:</label>
+              <textarea id="descripcion" required></textarea><br><br>
+      
+              <label for="descripcioncorta">Descripción Corta:</label>
+              <textarea id="descripcioncorta" required></textarea><br><br>
+      
+            </div>
+            <div>
+              <!-- Contenido de la segunda sección -->
+              <label for="direccion">Direccion:</label>
+              <textarea id="direccion" required></textarea><br><br>
+              <label for="precio">Precio:</label>
+              <input type="number" id="precio" required><br><br>
+      
+              <label for="mapa">Mapa:</label>
+              <input type="text" id="mapa" required><br><br>
+      
+            </div>
+            <div>
+              <!-- Contenido de la tercera sección -->
+              <label for="esDestacado">Es destacado:</label>
+              <input type="checkbox" id="esDestacado"><br><br>
+              <label for="tipo">Tipo:</label>
+              <select id="tipo" required>
+                  <option value="">Seleccione un tipo</option>
+                  <option value="Casas">Casas</option>
+                  <option value="Departamentos">Departamentos</option>
+                  <option value="Fideicomisos">Fideicomisos</option>
+                  <option value="Proyectos">Proyectos</option>
+                  <option value="Locales">Locales</option>
+              </select><br><br>
+      
+              <label for="condicion">Condición:</label>
+              <select id="condicion" required>
+                  <option value="">Seleccione una condición</option>
+                  <option value="Venta">Venta</option>
+                  <option value="Alquiler">Alquiler</option>
+              </select><br><br>
 
-          <label for="descripcion">Descripción:</label>
-          <textarea id="descripcion" required></textarea><br><br>
-
-          <label for="descripcioncorta">Descripción Corta:</label>
-          <textarea id="descripcioncorta" required></textarea><br><br>
-
-          <label for="direccion">Direccion:</label>
-          <textarea id="direccion" required></textarea><br><br>
-
-          <label for="precio">Precio:</label>
-          <input type="number" id="precio" required><br><br>
-
-          <label for="mapa">Mapa:</label>
-          <input type="text" id="mapa" required><br><br>
-
-          <label for="esDestacado">Es destacado:</label>
-          <input type="checkbox" id="esDestacado"><br><br>
-
-          <label for="tipo">Tipo:</label>
-          <select id="tipo" required>
-            <option value="">Seleccione un tipo</option>
-            <option value="Casas">Casas</option>
-            <option value="Departamentos">Departamentos</option>
-            <option value="Fideicomisos">Fideicomisos</option>
-            <option value="Proyectos">Proyectos</option>
-            <option value="Locales">Locales</option>
-          </select><br><br>
-
-          <label for="condicion">Condición:</label>
-          <select id="condicion" required>
-            <option value="">Seleccione una condición</option>
-            <option value="Venta">Venta</option>
-            <option value="Alquiler">Alquiler</option>
-          </select><br><br>
-
-          <button type="submit">Crear</button>
-        </form>
+              <div class="fechas">
+                <input type="text" name="daterange" id="daterange" />
+            </div>
+      
+              <button type="submit">Crear</button>
+          </div>
+      </form>
 
       </div>
       <div class="foto">
-
-
-        <h1>Subir Fotos</h1>
+  
+  
+        <h1>Subir Fotos Propiedades</h1>
         <form id="fotosForm" enctype="multipart/form-data">
           <label for="propiedadId">Propiedad:</label>
           <select id="propiedadId" tables/ name="propiedadId">
             <!-- Opciones de propiedades -->
           </select>
           <br>
-
+  
           <label for="fotos">Fotos:</label>
           <input class="file-input" type="file" id="fotos" name="fotos" accept="image/*" multiple>
           <br>
-
+  
           <input class="formButton" type="submit" value="Enviar">
         </form>
       </div>
@@ -79,90 +93,106 @@
       <div class="propiedad-temoral">
 
         <h1>Crear Propiedad Temporal</h1>
-        <form id="propiedadForm" action="/crearPropiedad" method="POST">
-          <label for="nombre">Nombre:</label>
-          <input type="text" id="nombre" name="nombre" required><br><br>
-  
-          <label for="descripcion">Descripción:</label>
-          <textarea id="descripcion" name="descripcion" required></textarea><br><br>
-  
-          <label for="descripcioncorta">Descripción Corta:</label>
-          <textarea id="descripcioncorta" name="descripcioncorta" required></textarea><br><br>
-  
-          <label for="ciudad">Ciudad:</label>
-          <input type="text" id="ciudad" name="ciudad" required><br><br>
-  
-          <label for="provincia">Provincia:</label>
-          <input type="text" id="provincia" name="provincia" required><br><br>
-  
-          <label for="direccion">Dirección:</label>
-          <input type="text" id="direccion" name="direccion" required><br><br>
-  
-          <label for="precio">Precio:</label>
-          <input type="text" id="precio" name="precio" required><br><br>
-  
-          <label for="wifi">Wifi:</label>
-          <input type="checkbox" id="wifi" name="wifi"><br><br>
-  
-          <label for="tv">TV:</label>
-          <input type="checkbox" id="tv" name="tv"><br><br>
-  
-          <label for="cochera">Cochera:</label>
-          <input type="checkbox" id="cochera" name="cochera"><br><br>
-  
-          <label for="mascotas">Mascotas:</label>
-          <input type="checkbox" id="mascotas" name="mascotas"><br><br>
-  
-          <label for="pileta">Pileta:</label>
-          <input type="checkbox" id="pileta" name="pileta"><br><br>
-  
-          <label for="conBlanco">Con Blanco:</label>
-          <input type="checkbox" id="conBlanco" name="conBlanco"><br><br>
-  
-          <label for="lavarropa">Lavarropa:</label>
-          <input type="checkbox" id="lavarropa" name="lavarropa"><br><br>
-  
-          <label for="parrilla">Parrilla:</label>
-          <input type="checkbox" id="parrilla" name="parrilla"><br><br>
-  
-          <label for="distanciaAlCentro">Distancia al Centro:</label>
-          <input type="text" id="distanciaAlCentro" name="distanciaAlCentro" required><br><br>
-  
-          <label for="distanciaAlMar">Distancia al Mar:</label>
-          <input type="text" id="distanciaAlMar" name="distanciaAlMar" required><br><br>
-  
-          <label for="esDestacado">¿Es Destacado?:</label>
-          <input type="checkbox" id="esDestacado" name="esDestacado"><br><br>
-  
-          <label for="cantidadPersonas">Cantidad de Personas:</label>
-          <input type="number" id="cantidadPersonas" name="cantidadPersonas" required><br><br>
-  
-          <label for="cantidadAmbientes">Cantidad de Ambientes:</label>
-          <input type="number" id="cantidadAmbientes" name="cantidadAmbientes" required><br><br>
-  
-          <label for="mapa">Mapa:</label>
-          <input type="text" id="mapa" name="mapa" required><br><br>
-  
-          <label for="reserva">Reserva:</label>
-          <input type="number" id="reserva" name="reserva" required><br><br>
-  
-          <label for="titular">Titular:</label>
-          <input type="text" id="titular" name="titular" required><br><br>
-  
-          <label for="alias">Alias:</label>
-          <input type="text" id="alias" name="alias"><br><br>
-  
-          <label for="Cuenta">Cuenta:</label>
-          <input type="text" id="Cuenta" name="Cuenta" required><br><br>
-  
-          <button type="submit">Crear Propiedad</button>
+        <form id="propiedadForm" action="/crearPropiedad" method="POST" style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 20px;">
+          <div>
+              <!-- Primera columna -->
+              <label for="nombre">Nombre:</label>
+              <input type="text" id="nombre" name="nombre" required><br><br>
+      
+              <label for="descripcion">Descripción:</label>
+              <textarea id="descripcion" name="descripcion" required></textarea><br><br>
+      
+              <label for="descripcioncorta">Descripción Corta:</label>
+              <textarea id="descripcioncorta" name="descripcioncorta" required></textarea><br><br>
+      
+              <label for="ciudad">Ciudad:</label>
+              <input type="text" id="ciudad" name="ciudad" required><br><br>
+      
+              <label for="provincia">Provincia:</label>
+              <input type="text" id="provincia" name="provincia" required><br><br>
+      
+              <label for="direccion">Dirección:</label>
+              <input type="text" id="direccion" name="direccion" required><br><br>
+      
+              <label for="precio">Precio:</label>
+              <input type="text" id="precio" name="precio" required><br><br>
+
+              <label for="distanciaAlCentro">Distancia al Centro:</label>
+              <input type="text" id="distanciaAlCentro" name="distanciaAlCentro" required><br><br>
+      
+              <label for="distanciaAlMar">Distancia al Mar:</label>
+              <input type="text" id="distanciaAlMar" name="distanciaAlMar" required><br><br>
+              
+          </div>
+          <div>
+              <!-- Segunda columna -->
+              <label for="wifi">Wifi:</label>
+              <input type="checkbox" id="wifi" name="wifi"><br><br>
+      
+              <label for="tv">TV:</label>
+              <input type="checkbox" id="tv" name="tv"><br><br>
+
+              <label for="cochera">Cochera:</label>
+              <input type="checkbox" id="cochera" name="cochera"><br><br>
+      
+              <label for="mascotas">Mascotas:</label>
+              <input type="checkbox" id="mascotas" name="mascotas"><br><br>
+      
+              <label for="pileta">Pileta:</label>
+              <input type="checkbox" id="pileta" name="pileta"><br><br>
+      
+              <label for="conBlanco">Con Blanco:</label>
+              <input type="checkbox" id="conBlanco" name="conBlanco"><br><br>
+      
+              <label for="lavarropa">Lavarropa:</label>
+              <input type="checkbox" id="lavarropa" name="lavarropa"><br><br>
+      
+              <label for="parrilla">Parrilla:</label>
+              <input type="checkbox" id="parrilla" name="parrilla"><br><br>
+      
+              <label for="esDestacado">¿Es Destacado?:</label>
+              <input type="checkbox" id="esDestacado" name="esDestacado"><br><br>
+      
+              
+          </div>
+          <div>
+              <!-- Tercera columna -->
+              
+
+              <label for="cantidadPersonas">Cantidad de Personas:</label>
+              <input type="number" id="cantidadPersonas" name="cantidadPersonas" required><br><br>
+      
+              <label for="cantidadAmbientes">Cantidad de Ambientes:</label>
+              <input type="number" id="cantidadAmbientes" name="cantidadAmbientes" required><br><br>
+      
+              <label for="mapa">Mapa:</label>
+              <input type="text" id="mapa" name="mapa" required><br><br>
+      
+              <label for="reserva">Reserva: (en porcentaje)</label>
+              <input type="number" id="reserva" name="reserva" required><br><br>
+      
+              <label for="titular">Titular:</label>
+              <input type="text" id="titular" name="titular" required><br><br>
+      
+              <label for="alias">Alias:</label>
+              <input type="text" id="alias" name="alias"><br><br>
+      
+              <label for="Cuenta">CBU:</label>
+              <input type="text" id="Cuenta" name="Cuenta" required><br><br>
+      
+              <label for="fecha">Selecciona fechas múltiples:</label>
+           
+              <div class="fechas">
+                <input type="text" name="daterange" id="daterangeAdmin" />
+            </div>
+      
+
+              <button type="submit">Crear Propiedad</button>
       </form>
+      
 
       </div>
       <div class="foto">
-        <label for="fecha">Selecciona fechas múltiples:</label>
-    <input type="date" id="fecha" name="fecha" multiple>
-    <button onclick="enviarFechas()">Enviar Fechas</button>
     
   
 
@@ -186,60 +216,17 @@
 
   </body>
   </html>
- 
+
+  <script>
+    $(function() {
+      $('#daterangeAdmin').daterangepicker({
+        opens: 'left'
+      }, function(start, end, label) {
+        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+      });
+    });
+    </script>
   
-  
-  
-
-
-    <!-- <h1>Lista de Propiedades</h1>
-
-    <div id="propiedades-container"></div>
-
-
-    <div class="limiter">
-      <div class="container-table100">
-        <div class="wrap-table100">
-          <div class="table100">
-            <table>
-              <thead>
-                <tr class="table100-head">
-                  <th class="column1">Nombre</th>
-                  <th class="column2">Descripcion</th>
-                  <th class="column3">Precio</th>
-                  <th class="column4">Tipo</th>
-                  <th class="column5">Condicion</th>
-                  <th class="column6">Eliminar</th>
-                </tr>
-              </thead>
-              <tbody class="tbodyElement">
-
-              </tbody>
-
-            </table>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-
-    <script>
-          function enviarFechas() {
-            var fechaInput = document.getElementById("fecha");
-            var fechasSeleccionadas = [];
-
-            // Obtener las fechas seleccionadas
-            for (var i = 0; i < fechaInput.selectedOptions.length; i++) {
-                fechasSeleccionadas.push(fechaInput.selectedOptions[i].value);
-            }
-
-            // Aquí puedes enviar las fechasSeleccionadas a tu base de datos
-            // Puedes usar una solicitud AJAX o cualquier otro método de tu elección
-
-            // Ejemplo de cómo mostrar las fechas seleccionadas
-            alert("Fechas seleccionadas: " + fechasSeleccionadas.join(", "));
-        }
-  </script>
     <script src="./javascripts/restricted.js"></script>
     <script src="./javascripts/tables/jquery-3.2.1.min.js"></script>
 
@@ -259,7 +246,7 @@
       gtag('config', 'UA-23581568-13');
     </script>
     <!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v52afc6f149f6479b8c77fa569edb01181681764108816" integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw==" data-cf-beacon='{"rayId":"7cba62a9ff6ca78f","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2023.4.0","si":100}' crossorigin="anonymous"></script> -->
-
+    <!-- <script src="/javascripts/calendarAdmin.js"></script> -->
   </body>
 
 </html>

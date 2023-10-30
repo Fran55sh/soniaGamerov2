@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="card-propiedad">
-                    <div class="contenido">
+                    <div class="contenidoDate">
                         <div class="swiper mySwiper">
                             <div class="swiper-wrapper">
                                 <% propiedad[0].fotoDates.forEach(foto=> { %>
@@ -49,9 +49,9 @@
 
                     <!-- inicio div wrapper -->
 
-                    <div class="wraper">
+                    <div class="wraperDate">
                         <div class="wrapper1">
-                            <div class="card-descripcion-wrapper">
+                            <div class="card-descripcion-wrapper    ">
                                 <p class="card-propiedad-description-name">
                                     <%= propiedad[0].nombre %>
                                 </p>
@@ -97,7 +97,7 @@
                                             <b>
                                                 <%= servicio.nombre %>:
                                             </b><span class="material-symbols-outlined">
-                                                <%= servicio.valor ? 'check_box' : 'disabled_by_default' %>
+                                                <%= servicio.valor ? 'check' : 'close' %>
                                             </span>
                                         </p>
                                         <% }); %>
