@@ -103,6 +103,10 @@ const propiedadesDateModel = sequelize.define(
       allowNull: false,
     },
     precio: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    divisa: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
@@ -221,6 +225,14 @@ const reservaModel = sequelize.define("reserva", {
     type: DataTypes.TEXT,
     allowNull: false,
   },
+  montoADepositar: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  montoRestante: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  }
 });
 
 // Ahora, establecemos la relación entre propiedadesDateModel y Disponibilidad:

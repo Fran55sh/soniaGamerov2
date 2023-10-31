@@ -1,76 +1,76 @@
 <!DOCTYPE html>
 <html>
 <% include ./ejs/restrictedhead %>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 
 
 
   <body class="restricted">
-    <section class="crear-propiedad" >
+    <section class="crear-propiedad">
       <div class="propiedad">
 
         <h1>Crear Propiedad</h1>
         <form id="propiedadForm" style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 20px;">
           <div>
-              <!-- Contenido de la primera sección -->
-              <label for="nombre">Nombre:</label>
-              <input type="text" id="nombre" required><br><br>
-      
-              <label for="descripcion">Descripción:</label>
-              <textarea id="descripcion" required></textarea><br><br>
-      
-              <label for="descripcioncorta">Descripción Corta:</label>
-              <textarea id="descripcioncorta" required></textarea><br><br>
-      
-            </div>
-            <div>
-              <!-- Contenido de la segunda sección -->
-              <label for="direccion">Direccion:</label>
-              <textarea id="direccion" required></textarea><br><br>
-              <label for="precio">Precio:</label>
-              <input type="number" id="precio" required><br><br>
-      
-              <label for="mapa">Mapa:</label>
-              <input type="text" id="mapa" required><br><br>
-      
-            </div>
-            <div>
-              <!-- Contenido de la tercera sección -->
-              <label for="esDestacado">Es destacado:</label>
-              <input type="checkbox" id="esDestacado"><br><br>
-              <label for="tipo">Tipo:</label>
-              <select id="tipo" required>
-                  <option value="">Seleccione un tipo</option>
-                  <option value="Casas">Casas</option>
-                  <option value="Departamentos">Departamentos</option>
-                  <option value="Fideicomisos">Fideicomisos</option>
-                  <option value="Proyectos">Proyectos</option>
-                  <option value="Locales">Locales</option>
-              </select><br><br>
-      
-              <label for="condicion">Condición:</label>
-              <select id="condicion" required>
-                  <option value="">Seleccione una condición</option>
-                  <option value="Venta">Venta</option>
-                  <option value="Alquiler">Alquiler</option>
-              </select><br><br>
+            <!-- Contenido de la primera sección -->
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" required><br><br>
 
-              <div class="fechas">
-                <input type="text" name="daterange" id="daterange" />
-            </div>
-      
-              <button type="submit">Crear</button>
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" required></textarea><br><br>
+
+            <label for="descripcioncorta">Descripción Corta:</label>
+            <textarea id="descripcioncorta" required></textarea><br><br>
+
           </div>
-      </form>
+          <div>
+            <!-- Contenido de la segunda sección -->
+            <label for="direccion">Direccion:</label>
+            <textarea id="direccion" required></textarea><br><br>
+            <label for="precio">Precio:</label>
+            <input type="number" id="precio" required><br><br>
+
+            <label for="mapa">Mapa:</label>
+            <input type="text" id="mapa" required><br><br>
+
+          </div>
+          <div>
+            <!-- Contenido de la tercera sección -->
+            <label for="esDestacado">Es destacado:</label>
+            <input type="checkbox" id="esDestacado"><br><br>
+            <label for="tipo">Tipo:</label>
+            <select id="tipo" required>
+              <option value="">Seleccione un tipo</option>
+              <option value="Casas">Casas</option>
+              <option value="Departamentos">Departamentos</option>
+              <option value="Fideicomisos">Fideicomisos</option>
+              <option value="Proyectos">Proyectos</option>
+              <option value="Locales">Locales</option>
+            </select><br><br>
+
+            <label for="condicion">Condición:</label>
+            <select id="condicion" required>
+              <option value="">Seleccione una condición</option>
+              <option value="Venta">Venta</option>
+              <option value="Alquiler">Alquiler</option>
+            </select><br><br>
+
+            <div class="fechas">
+              <input type="text" name="daterange" id="daterange" />
+            </div>
+
+            <button type="submit">Crear</button>
+          </div>
+        </form>
 
       </div>
       <div class="foto">
-  
-  
+
+
         <h1>Subir Fotos Propiedades</h1>
         <form id="fotosForm" enctype="multipart/form-data">
           <label for="propiedadId">Propiedad:</label>
@@ -78,11 +78,11 @@
             <!-- Opciones de propiedades -->
           </select>
           <br>
-  
+
           <label for="fotos">Fotos:</label>
           <input class="file-input" type="file" id="fotos" name="fotos" accept="image/*" multiple>
           <br>
-  
+
           <input class="formButton" type="submit" value="Enviar">
         </form>
       </div>
@@ -93,108 +93,112 @@
       <div class="propiedad-temoral">
 
         <h1>Crear Propiedad Temporal</h1>
-        <form id="propiedadForm" action="/crearPropiedad" method="POST" style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 20px;">
+        <form id="propiedadForm" action="/crearPropiedad" method="POST"
+          style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 20px;">
           <div>
-              <!-- Primera columna -->
-              <label for="nombre">Nombre:</label>
-              <input type="text" id="nombre" name="nombre" required><br><br>
-      
-              <label for="descripcion">Descripción:</label>
-              <textarea id="descripcion" name="descripcion" required></textarea><br><br>
-      
-              <label for="descripcioncorta">Descripción Corta:</label>
-              <textarea id="descripcioncorta" name="descripcioncorta" required></textarea><br><br>
-      
-              <label for="ciudad">Ciudad:</label>
-              <input type="text" id="ciudad" name="ciudad" required><br><br>
-      
-              <label for="provincia">Provincia:</label>
-              <input type="text" id="provincia" name="provincia" required><br><br>
-      
-              <label for="direccion">Dirección:</label>
-              <input type="text" id="direccion" name="direccion" required><br><br>
-      
-              <label for="precio">Precio:</label>
-              <input type="text" id="precio" name="precio" required><br><br>
+            <!-- Primera columna -->
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required><br><br>
 
-              <label for="distanciaAlCentro">Distancia al Centro:</label>
-              <input type="text" id="distanciaAlCentro" name="distanciaAlCentro" required><br><br>
-      
-              <label for="distanciaAlMar">Distancia al Mar:</label>
-              <input type="text" id="distanciaAlMar" name="distanciaAlMar" required><br><br>
-              
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" required></textarea><br><br>
+
+            <label for="descripcioncorta">Descripción Corta:</label>
+            <textarea id="descripcioncorta" name="descripcioncorta" required></textarea><br><br>
+
+            <label for="ciudad">Ciudad:</label>
+            <input type="text" id="ciudad" name="ciudad" required><br><br>
+
+            <label for="provincia">Provincia:</label>
+            <input type="text" id="provincia" name="provincia" required><br><br>
+
+            <label for="direccion">Dirección:</label>
+            <input type="text" id="direccion" name="direccion" required><br><br>
+
+            <label for="precio">Precio:</label>
+            <input type="text" id="precio" name="precio" required><br><br>
+
+            <label for="distanciaAlCentro">Distancia al Centro:</label>
+            <input type="text" id="distanciaAlCentro" name="distanciaAlCentro" required><br><br>
+
+            <label for="distanciaAlMar">Distancia al Mar:</label>
+            <input type="text" id="distanciaAlMar" name="distanciaAlMar" required><br><br>
+
           </div>
           <div>
-              <!-- Segunda columna -->
-              <label for="wifi">Wifi:</label>
-              <input type="checkbox" id="wifi" name="wifi"><br><br>
-      
-              <label for="tv">TV:</label>
-              <input type="checkbox" id="tv" name="tv"><br><br>
+            <!-- Segunda columna -->
+            <label for="wifi">Wifi:</label>
+            <input type="checkbox" id="wifi" name="wifi"><br><br>
 
-              <label for="cochera">Cochera:</label>
-              <input type="checkbox" id="cochera" name="cochera"><br><br>
-      
-              <label for="mascotas">Mascotas:</label>
-              <input type="checkbox" id="mascotas" name="mascotas"><br><br>
-      
-              <label for="pileta">Pileta:</label>
-              <input type="checkbox" id="pileta" name="pileta"><br><br>
-      
-              <label for="conBlanco">Con Blanco:</label>
-              <input type="checkbox" id="conBlanco" name="conBlanco"><br><br>
-      
-              <label for="lavarropa">Lavarropa:</label>
-              <input type="checkbox" id="lavarropa" name="lavarropa"><br><br>
-      
-              <label for="parrilla">Parrilla:</label>
-              <input type="checkbox" id="parrilla" name="parrilla"><br><br>
-      
-              <label for="esDestacado">¿Es Destacado?:</label>
-              <input type="checkbox" id="esDestacado" name="esDestacado"><br><br>
-      
-              
+            <label for="tv">TV:</label>
+            <input type="checkbox" id="tv" name="tv"><br><br>
+
+            <label for="cochera">Cochera:</label>
+            <input type="checkbox" id="cochera" name="cochera"><br><br>
+
+            <label for="mascotas">Mascotas:</label>
+            <input type="checkbox" id="mascotas" name="mascotas"><br><br>
+
+            <label for="pileta">Pileta:</label>
+            <input type="checkbox" id="pileta" name="pileta"><br><br>
+
+            <label for="conBlanco">Con Blanco:</label>
+            <input type="checkbox" id="conBlanco" name="conBlanco"><br><br>
+
+            <label for="lavarropa">Lavarropa:</label>
+            <input type="checkbox" id="lavarropa" name="lavarropa"><br><br>
+
+            <label for="parrilla">Parrilla:</label>
+            <input type="checkbox" id="parrilla" name="parrilla"><br><br>
+
+            <label for="esDestacado">¿Es Destacado?:</label>
+            <input type="checkbox" id="esDestacado" name="esDestacado"><br><br>
+
+
           </div>
           <div>
-              <!-- Tercera columna -->
-              
+            <!-- Tercera columna -->
 
-              <label for="cantidadPersonas">Cantidad de Personas:</label>
-              <input type="number" id="cantidadPersonas" name="cantidadPersonas" required><br><br>
-      
-              <label for="cantidadAmbientes">Cantidad de Ambientes:</label>
-              <input type="number" id="cantidadAmbientes" name="cantidadAmbientes" required><br><br>
-      
-              <label for="mapa">Mapa:</label>
-              <input type="text" id="mapa" name="mapa" required><br><br>
-      
-              <label for="reserva">Reserva: (en porcentaje)</label>
-              <input type="number" id="reserva" name="reserva" required><br><br>
-      
-              <label for="titular">Titular:</label>
-              <input type="text" id="titular" name="titular" required><br><br>
-      
-              <label for="alias">Alias:</label>
-              <input type="text" id="alias" name="alias"><br><br>
-      
-              <label for="Cuenta">CBU:</label>
-              <input type="text" id="Cuenta" name="Cuenta" required><br><br>
-      
-              <label for="fecha">Selecciona fechas múltiples:</label>
-           
-              <div class="fechas">
-                <input type="text" name="daterange" id="daterangeAdmin" />
+
+            <label for="cantidadPersonas">Cantidad de Personas:</label>
+            <input type="number" id="cantidadPersonas" name="cantidadPersonas" required><br><br>
+
+            <label for="cantidadAmbientes">Cantidad de Ambientes:</label>
+            <input type="number" id="cantidadAmbientes" name="cantidadAmbientes" required><br><br>
+
+            <label for="mapa">Mapa:</label>
+            <input type="text" id="mapa" name="mapa" required><br><br>
+
+            <label for="reserva">Reserva: (en porcentaje)</label>
+            <input type="number" id="reserva" name="reserva" required><br><br>
+
+            <label for="titular">Titular:</label>
+            <input type="text" id="titular" name="titular" required><br><br>
+
+            <label for="alias">Alias:</label>
+            <input type="text" id="alias" name="alias"><br><br>
+
+            <label for="Cuenta">CBU:</label>
+            <input type="text" id="Cuenta" name="Cuenta" required><br><br>
+
+            <label for="fecha">Selecciona fechas múltiples:</label>
+
+            <div class="fechas">
+              <input type="date" name="starDate" />
+              <br>
+              <input type="date" name="endDate" />
             </div>
-      
+            <br>
 
-              <button type="submit">Crear Propiedad</button>
-      </form>
-      
+            <button type="submit">Crear Propiedad</button>
+        </form>
+
 
       </div>
+      </div>
       <div class="foto">
-    
-  
+
+
 
 
         <h1>Subir Fotos</h1>
@@ -211,42 +215,42 @@
 
           <input class="formButton" type="submit" value="Enviar">
         </form>
-      </div>
     </section>
 
   </body>
-  </html>
 
-  <script>
-    $(function() {
-      $('#daterangeAdmin').daterangepicker({
-        opens: 'left'
-      }, function(start, end, label) {
-        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-      });
+</html>
+
+<script>
+  $(function () {
+    $('#daterangeAdmin').daterangepicker({
+      opens: 'left'
+    }, function (start, end, label) {
+      console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
     });
-    </script>
-  
-    <script src="./javascripts/restricted.js"></script>
-    <script src="./javascripts/tables/jquery-3.2.1.min.js"></script>
+  });
+</script>
 
-    <script src="./javascripts/tables/popper.js"></script>
-    <script src="./javascripts/tables/bootstrap.min.js"></script>
+<script src="./javascripts/restricted.js"></script>
+<script src="./javascripts/tables/jquery-3.2.1.min.js"></script>
 
-    <script src="./javascripts/tables/select2.min.js"></script>
+<script src="./javascripts/tables/popper.js"></script>
+<script src="./javascripts/tables/bootstrap.min.js"></script>
 
-    <script src="./javascripts/tables/main.js"></script>
+<script src="./javascripts/tables/select2.min.js"></script>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() { dataLayer.push(arguments); }
-      gtag('js', new Date());
+<script src="./javascripts/tables/main.js"></script>
 
-      gtag('config', 'UA-23581568-13');
-    </script>
-    <!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v52afc6f149f6479b8c77fa569edb01181681764108816" integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw==" data-cf-beacon='{"rayId":"7cba62a9ff6ca78f","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2023.4.0","si":100}' crossorigin="anonymous"></script> -->
-    <!-- <script src="/javascripts/calendarAdmin.js"></script> -->
-  </body>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+<!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v52afc6f149f6479b8c77fa569edb01181681764108816" integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw==" data-cf-beacon='{"rayId":"7cba62a9ff6ca78f","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2023.4.0","si":100}' crossorigin="anonymous"></script> -->
+<!-- <script src="/javascripts/calendarAdmin.js"></script> -->
+</body>
 
 </html>

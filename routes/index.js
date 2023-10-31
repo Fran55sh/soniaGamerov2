@@ -6,7 +6,11 @@ const Usuario = require('../controllers/userControllers')
 const { propiedadesModel } = require("../db/config"); 
 const upload = require("../controllers/propiedadesControllers")
 
-
+// Middlewares
+const redirectToPropiedadesDate = (req, res, next) => {
+  res.redirect("/propiedadesDate");
+  next();
+};
 /* GET home page. */
 
 // router.get("/", function (req, res, next) {
@@ -35,7 +39,7 @@ router.get('/detallePropiedadDate/:dato', function(req,res,next){
 
 //propiedades
 
-router.get('/date', Propiedades.getPropiedadesByTipoDate)
+
 
 router.get('/api/propiedades', Propiedades.getPropiedades, Propiedades.getPropiedadesBydate);
 
@@ -49,7 +53,7 @@ router.get('/api/propiedad/:id', Propiedades.getPropiedadesById)
 
 
 //propiedades temporales
-router.get('/propiedadesDate', Propiedades.getPropiedadesDate)
+router.get('/date', Propiedades.getPropiedadesByTipoDate)
 
 router.get('/fechasPropiedades', Propiedades.getPropiedadesDateFechas)
 

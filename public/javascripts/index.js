@@ -5,7 +5,6 @@ const ultimasCards = document.getElementById('ultimasCards')
 
 
   var buttons = document.querySelectorAll('.search-card-button');
-  console.log(buttons)
   buttons.forEach(function(button) {
     button.addEventListener('click', function() {
       // Obtén el valor del atributo "data" del botón
@@ -144,7 +143,6 @@ window.location.href = url;
 
 document.addEventListener('DOMContentLoaded', function() {
   let contitions = document.querySelectorAll('.card-condition')
-console.log(contitions)
 
 contitions.forEach((element) => {
   if (element.textContent.includes('Venta')) {

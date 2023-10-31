@@ -35,7 +35,6 @@ document.getElementById("fotosForm").addEventListener("submit", (event) => {
   for (let i = 0; i < fotos.length; i++) {
     formData.append("fotos", fotos[i]);
   }
-  console.log(`este es el ${formData}` );
 
   // Realiza una solicitud HTTP al servidor para subir las fotos
   fetch("/subir-fotos", {

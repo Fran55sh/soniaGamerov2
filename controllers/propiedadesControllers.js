@@ -1,7 +1,7 @@
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
-const { Op } = require('sequelize');
+const { Op } = require("sequelize");
 const {
   propiedadesModel,
   tipoModel,
@@ -11,13 +11,18 @@ const {
   fotoDateModel,
   disponibilidadModel,
   fechaModel,
+  reservaModel,
 } = require("../db/config");
 const { getTipoId, getCondicionId } = require("../helpers/getTiposConditions");
 
-const {fechaLimite, storage, transporter} = require ("../helpers/helpers")
+const {
+  fechaLimite,
+  storage,
+  transporter,
+  mail,
+} = require("../helpers/helpers");
 
 const upload = multer({ storage: storage });
-
 
 class Propiedades {
   static async getPropiedades(req, res) {
@@ -47,10 +52,8 @@ class Propiedades {
     }
   }
 
-
   static async getPropiedadesById(req, res) {
     const id = req.params.id;
-    console.log(id);
     try {
       // Obtiene todas las propiedades con sus relaciones
       const propiedad = await propiedadesModel.findAll({
@@ -69,8 +72,6 @@ class Propiedades {
         // Maneja el caso cuando no hay propiedad encontradas
         res.render("detallePropiedad", { propiedad: null }); // o puedes pasar un mensaje de error
       } else {
-        // Devuelve la propiedad con relaciones en la respuesta
-        console.log(propiedad);
         res.render("detallePropiedad", { propiedad });
         // res.json(propiedad)
       }
@@ -80,10 +81,8 @@ class Propiedades {
     }
   }
 
-
   static async getPropiedadesByTipo(req, res) {
     const tipo = req.params.dato;
-    console.log(tipo);
     try {
       // Obtiene todas las propiedades con sus relaciones
       const propiedades = await propiedadesModel.findAll({
@@ -103,7 +102,7 @@ class Propiedades {
         res.render("propiedades", { propiedades: null }); // o puedes pasar un mensaje de error
       } else {
         // Devuelve las propiedades con relaciones en la respuesta
-        console.log(propiedades);
+     
         res.render("propiedades", { propiedades });
         // res.json(propiedades)
       }
@@ -148,7 +147,7 @@ class Propiedades {
         }); // o puedes pasar un mensaje de error
       } else {
         // Devuelve las propiedades con relaciones en la respuesta
-        console.log(ultimasPropiedades, featPropiedades);
+   
         res.render("index", { ultimasPropiedades, featPropiedades });
         // res.json(ultimasPropiedades);
       }
@@ -210,7 +209,6 @@ class Propiedades {
 
   // Maneja la solicitud POST utilizando multer
   static async postFotos(req, res) {
-    console.log("entra aca");
     try {
       const propiedadesId = req.body.propiedadId;
       const fotos = req.files;
@@ -306,19 +304,21 @@ class Propiedades {
           { model: fotoDateModel },
         ],
       });
-  
+
       // Mapea cada propiedad para obtener sus fechas de disponibilidad
-      const propiedadesConFechas = await Promise.all(propiedades.map(async (propiedad) => {
-        const fechasDisponibilidad = await disponibilidadModel.findAll({
-          where: { propiedadDateId: propiedad.id }, // Filtra por ID de propiedad
-          include: [{ model: fechaModel, attributes: ['fecha'] }],
-        });
-        return {
-          ...propiedad.toJSON(),
-          fechasDisponibilidad,
-        };
-      }));
-  
+      const propiedadesConFechas = await Promise.all(
+        propiedades.map(async (propiedad) => {
+          const fechasDisponibilidad = await disponibilidadModel.findAll({
+            where: { propiedadDateId: propiedad.id }, // Filtra por ID de propiedad
+            include: [{ model: fechaModel, attributes: ["fecha"] }],
+          });
+          return {
+            ...propiedad.toJSON(),
+            fechasDisponibilidad,
+          };
+        })
+      );
+
       res.json(propiedadesConFechas);
     } catch (error) {
       console.error("Error al obtener las propiedades:", error);
@@ -328,7 +328,6 @@ class Propiedades {
 
   static async getPropiedadesDateById(req, res) {
     const id = req.params.id;
-    console.log(id);
     try {
       // Obtiene todas las propiedades con sus relaciones
       const propiedad = await propiedadesDateModel.findAll({
@@ -336,23 +335,24 @@ class Propiedades {
           { model: tipoModel },
           { model: condicionModel },
           { model: fotoDateModel },
-      
         ],
         where: {
           "$propiedadDate.id$": id,
         },
       });
 
-      const propiedadesConFechas = await Promise.all(propiedad.map(async (propiedad) => {
-        const fechasDisponibilidad = await disponibilidadModel.findAll({
-          where: { propiedadDateId: propiedad.id }, // Filtra por ID de propiedad
-          // include: [{ model: fechaModel, attributes: ['fecha'] }],
-        });
-        return {
-          ...propiedad.toJSON(),
-          fechasDisponibilidad,
-        };
-      }));
+      const propiedadesConFechas = await Promise.all(
+        propiedad.map(async (propiedad) => {
+          const fechasDisponibilidad = await disponibilidadModel.findAll({
+            where: { propiedadDateId: propiedad.id }, // Filtra por ID de propiedad
+            // include: [{ model: fechaModel, attributes: ['fecha'] }],
+          });
+          return {
+            ...propiedad.toJSON(),
+            fechasDisponibilidad,
+          };
+        })
+      );
 
       // Devuelve la propiedad con relaciones en la respuesta
       if (propiedad.length === 0) {
@@ -360,7 +360,7 @@ class Propiedades {
         res.render("detallePropiedadDate", { propiedad: null });
       } else {
         // Devuelve la propiedad con relaciones en la respuesta
-        res.cookie('id', id);
+        res.cookie("id", id);
         res.render("detallePropiedadDate", { propiedad: propiedadesConFechas });
       }
     } catch (error) {
@@ -378,23 +378,24 @@ class Propiedades {
           { model: tipoModel },
           { model: condicionModel },
           { model: fotoDateModel },
-      
         ],
         where: {
           "$propiedadDate.id$": id,
         },
       });
 
-      const propiedadesConFechas = await Promise.all(propiedad.map(async (propiedad) => {
-        const fechasDisponibilidad = await disponibilidadModel.findAll({
-          where: { propiedadDateId: propiedad.id }, // Filtra por ID de propiedad
-          // include: [{ model: fechaModel, attributes: ['fecha'] }],
-        });
-        return {
-          ...propiedad.toJSON(),
-          fechasDisponibilidad,
-        };
-      }));
+      const propiedadesConFechas = await Promise.all(
+        propiedad.map(async (propiedad) => {
+          const fechasDisponibilidad = await disponibilidadModel.findAll({
+            where: { propiedadDateId: propiedad.id }, // Filtra por ID de propiedad
+            // include: [{ model: fechaModel, attributes: ['fecha'] }],
+          });
+          return {
+            ...propiedad.toJSON(),
+            fechasDisponibilidad,
+          };
+        })
+      );
 
       // Devuelve la propiedad con relaciones en la respuesta
       if (propiedad.length === 0) {
@@ -402,7 +403,7 @@ class Propiedades {
         res.status(404).json({ error: "no se encontraron propiedades" });
       } else {
         // Devuelve la propiedad con relaciones en la respuesta
-        res.json( propiedadesConFechas );
+        res.json(propiedadesConFechas);
       }
     } catch (error) {
       console.error("Error al obtener la propiedad:", error);
@@ -412,7 +413,6 @@ class Propiedades {
 
   static async getPropiedadesByTipoDate(req, res) {
     const condicion = "Alquiler termporal";
-    console.log(condicion);
     try {
       // Obtiene todas las propiedades con sus relaciones
       const propiedades = await propiedadesDateModel.findAll({
@@ -432,7 +432,6 @@ class Propiedades {
         res.render("propiedadesDate", { propiedades: null }); // o puedes pasar un mensaje de error
       } else {
         // Devuelve las propiedades con relaciones en la respuesta
-        console.log(propiedades);
         res.render("propiedadesDate", { propiedades });
         // res.json(propiedades)
       }
@@ -445,83 +444,65 @@ class Propiedades {
   static async getPropiedadesDateFechas(req, res) {
     const propiedadIdDeseada = 1; // Reemplaza con el ID de la propiedad que deseas consultar
 
-    disponibilidadModel.findAll({
-      where: { propiedadDateId: propiedadIdDeseada },
-      include: [{
-        model: fechaModel, // Tabla que deseas unir
-        attributes: ['fecha'], // Puedes seleccionar las columnas que deseas obtener de fechaModel
-      }],
-    }).then((result) => {
-      // El resultado contiene todas las fechas correspondientes a la propiedad
-      console.log(result);
-      res.json(result)
-    }).catch((error) => {
-      console.error('Error al buscar disponibilidades:', error);
-    });
-    
+    disponibilidadModel
+      .findAll({
+        where: { propiedadDateId: propiedadIdDeseada },
+        include: [
+          {
+            model: fechaModel, // Tabla que deseas unir
+            attributes: ["fecha"], // Puedes seleccionar las columnas que deseas obtener de fechaModel
+          },
+        ],
+      })
+      .then((result) => {
+        // El resultado contiene todas las fechas correspondientes a la propiedad
+        res.json(result);
+      })
+      .catch((error) => {
+        console.error("Error al buscar disponibilidades:", error);
+      });
   }
 
   static async getFechas(req, res) {
     try {
       // Obtiene todas las propiedades con sus relaciones
       const fechas = await fechaModel.findAll({});
-        res.json(fechas)
-      
+      res.json(fechas);
     } catch (error) {
       console.error("Error al obtener las fechas:", error);
       res.status(500).json({ error: "Error al obtener las fechas" });
     }
   }
 
-
-
   static async deleteReservas(req, res) {
     // Obtener los datos del formulario (si los hay)
 
     const body = req.body; // Suponiendo que los datos se envían en el cuerpo de la solicitud POST
     const propiedad = await propiedadesDateModel.findAll({
-      where: {id: body.id }, // Filtra por ID de propiedad
-      
+      where: { id: body.id }, // Filtra por ID de propiedad
     });
-    // Definir el mensaje de correo electrónico con datos dinámicos
-    const mailOptions = {
-      from: 'tu_correo@gmail.com',
-      to: 'corvattafranco@gmail.com',
-      subject: 'Confirmación de reserva',
-      html: `
-      
+    let montoADepositar = (Math.round(propiedad[0].precio) * propiedad[0].reserva) / 100;
+    let montoRestante = propiedad[0].precio - (Math.round(propiedad[0].precio) * propiedad[0].reserva) / 100;
 
-      Gracias por elegir nuestro servicio! Este correo es para confirmar que hemos recibido tu reserva para la propiedad ${propiedad[0].nombre} en la ciudad de ${propiedad[0].ciudad}. Para asegurar tu reserva, te pedimos que realices un depósito en la siguiente cuenta bancaria:<br>
-      <br>
-      Número de cuenta: ${propiedad[0].Cuenta}<br>
-      ${propiedad[0].alias ? `Alias: ${propiedad[0].alias}<br>` : ''} 
-      Nombre del titular: ${propiedad[0].titular}<br>
-      Monto a depositar: ${Math.round((propiedad[0].precio))*propiedad[0].reserva/100}<br>
-      Monto Restante: ${propiedad[0].precio - Math.round((propiedad[0].precio))*propiedad[0].reserva/100}<br>
-      <br>
-      Por favor, asegúrate de realizar el depósito antes de la fecha ${fechaLimite}. Una vez realizado el depósito, envíanos una confirmación por correo electrónico junto con los detalles de la transacción para verificar la reserva.<br>
-      <br>
-      Tu código de reserva es ${body.codigoUnico}. Con este código vas a poder hacernos consultas sobre el estado de tu reserva.<br>
-      Si tienes alguna pregunta o necesitas más información, no dudes en contactarnos!<br>
-      <br>
-      Saludos cordiales,<br>
-      <br>
-      Sonia Gamero Propiedades<br>
-      
-      `
-    };
-  
-    // Enviar el correo electrónico
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.error('Error al enviar el correo electrónico:', error);
-        res.status(500).send('Error al enviar el correo electrónico');
-      } else {
-        console.log('Correo electrónico enviado:', info.response);
-        res.status(200).send('Correo electrónico enviado con éxito');
-      }
-    });
-  };
+    let fechas = body.fechas.toString();
+    let id = propiedad[0].id;
+
+    mail(propiedad, body)
+
+    try {
+      const reserva = await reservaModel.create({
+        propiedadesDateId: id,
+        fechas,
+        montoADepositar,
+        montoRestante,
+      });
+
+      res.json(reserva)
+    } catch (error) {
+      console.error("Error al crear la reserva:", error);
+      res.status(500).json({ error: "Error al crear la reserva" });
+    }
+  }
 }
 
 (module.exports = Propiedades), upload;

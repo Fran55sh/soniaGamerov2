@@ -136,17 +136,11 @@ $(function () {
             var precioDia = propiedad[0].precio;
         totalDays = fechasCoincidentes.length;
         totalPrice = precioDia * totalDays;
-        console.log(totalDays, totalPrice);
 
         document.getElementById("total-price").textContent = totalPrice;
         document.getElementById("reserv-price").textContent = Math.round(totalPrice*(propiedad[0].reserva/100));
-        
-        
-        console.log(selectedDates);
-        console.log(dispDays);
-        console.log(fechasCoincidentes);
-      
-      },console.log(fechasCoincidentes)
+
+      },
       
     );
   }
@@ -162,7 +156,7 @@ async function reservar(){
   const email = document.getElementById('email').value;
   const telefono = document.getElementById('telefono').value;
   const id = propiedad[0].id;
-  const valor = fechasCoincidentes;
+  const fechas = fechasCoincidentes;
      // Comprobaciones
      if (!nombre) {
       alert('Por favor, ingrese un nombre válido.');
@@ -182,7 +176,7 @@ async function reservar(){
     return;
 }
 
-  if (valor.length < 1) {
+  if (fechas.length < 1) {
       alert('Por favor, seleccione una fecha.');
       return;
   }
@@ -203,11 +197,12 @@ async function reservar(){
   
   const datos = {
     id,
-    valor,
+    fechas,
     nombre,
     email,
     telefono,
-    codigoUnico
+    codigoUnico,
+
 
   };
 // Realiza la solicitud utilizando fetch
@@ -231,4 +226,5 @@ await fetch(`/api/propiedadesDate/reservar`, {
   .catch(error => {
     console.error('Error:', error);
   });
+  // window.location.href = "/date";
 }
