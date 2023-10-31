@@ -3,9 +3,6 @@
 <% include ./ejs/restrictedhead %>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
 
 
 
@@ -45,11 +42,11 @@
             <label for="tipo">Tipo:</label>
             <select id="tipo" required>
               <option value="">Seleccione un tipo</option>
-              <option value="Casas">Casas</option>
-              <option value="Departamentos">Departamentos</option>
-              <option value="Fideicomisos">Fideicomisos</option>
-              <option value="Proyectos">Proyectos</option>
-              <option value="Locales">Locales</option>
+              <option value="Casa">Casa</option>
+              <option value="Departamento">Departamento</option>
+              <option value="Fideicomiso">Fideicomiso</option>
+              <option value="Proyecto">proyProyectoecto</option>
+              <option value="Local">Local</option>
             </select><br><br>
 
             <label for="condicion">Condición:</label>
@@ -93,18 +90,18 @@
       <div class="propiedad-temoral">
 
         <h1>Crear Propiedad Temporal</h1>
-        <form id="propiedadForm" action="/crearPropiedad" method="POST"
+        <form id="propiedadTemporalForm" method="POST"
           style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 20px;">
           <div>
             <!-- Primera columna -->
             <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required><br><br>
+            <input type="text" id="nombreDate" name="nombre" required><br><br>
 
             <label for="descripcion">Descripción:</label>
-            <textarea id="descripcion" name="descripcion" required></textarea><br><br>
+            <textarea id="descripcionDate" name="descripcion" required></textarea><br><br>
 
             <label for="descripcioncorta">Descripción Corta:</label>
-            <textarea id="descripcioncorta" name="descripcioncorta" required></textarea><br><br>
+            <textarea id="descripcioncortaDate" name="descripcioncorta" required></textarea><br><br>
 
             <label for="ciudad">Ciudad:</label>
             <input type="text" id="ciudad" name="ciudad" required><br><br>
@@ -113,20 +110,23 @@
             <input type="text" id="provincia" name="provincia" required><br><br>
 
             <label for="direccion">Dirección:</label>
-            <input type="text" id="direccion" name="direccion" required><br><br>
+            <input type="text" id="direccionDate" name="direccion" required><br><br>
+
+            <label for="divisa">Divisa:</label>
+            <input type="text" id="divisaDate" name="divisa" required><br><br>
 
             <label for="precio">Precio:</label>
-            <input type="text" id="precio" name="precio" required><br><br>
+            <input type="text" id="precioDate" name="precio" required><br><br>
+
+          </div>
+          <div>
+            <!-- Segunda columna -->
 
             <label for="distanciaAlCentro">Distancia al Centro:</label>
             <input type="text" id="distanciaAlCentro" name="distanciaAlCentro" required><br><br>
 
             <label for="distanciaAlMar">Distancia al Mar:</label>
             <input type="text" id="distanciaAlMar" name="distanciaAlMar" required><br><br>
-
-          </div>
-          <div>
-            <!-- Segunda columna -->
             <label for="wifi">Wifi:</label>
             <input type="checkbox" id="wifi" name="wifi"><br><br>
 
@@ -152,7 +152,7 @@
             <input type="checkbox" id="parrilla" name="parrilla"><br><br>
 
             <label for="esDestacado">¿Es Destacado?:</label>
-            <input type="checkbox" id="esDestacado" name="esDestacado"><br><br>
+            <input type="checkbox" id="esDestacadoDate" name="esDestacado"><br><br>
 
 
           </div>
@@ -167,7 +167,7 @@
             <input type="number" id="cantidadAmbientes" name="cantidadAmbientes" required><br><br>
 
             <label for="mapa">Mapa:</label>
-            <input type="text" id="mapa" name="mapa" required><br><br>
+            <input type="text" id="mapaDate" name="mapa" required><br><br>
 
             <label for="reserva">Reserva: (en porcentaje)</label>
             <input type="number" id="reserva" name="reserva" required><br><br>
@@ -180,6 +180,15 @@
 
             <label for="Cuenta">CBU:</label>
             <input type="text" id="Cuenta" name="Cuenta" required><br><br>
+            <select id="tipoDate" required>
+              <option value="">Seleccione un tipo</option>
+              <option value="Casa">Casa</option>
+              <option value="Departamento">Dapartamento</option>
+              <option value="Fideicomiso">Fideicomiso</option>
+              <option value="Proyecto">Proyecto</option>
+              <option value="Local">Local</option>
+            </select><br><br>
+
 
             <label for="fecha">Selecciona fechas múltiples:</label>
 
@@ -221,15 +230,6 @@
 
 </html>
 
-<script>
-  $(function () {
-    $('#daterangeAdmin').daterangepicker({
-      opens: 'left'
-    }, function (start, end, label) {
-      console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-    });
-  });
-</script>
 
 <script src="./javascripts/restricted.js"></script>
 <script src="./javascripts/tables/jquery-3.2.1.min.js"></script>

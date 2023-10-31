@@ -18,7 +18,7 @@
                             <% include ./ejs/header %>
                                 <div class="coverPropiedadesText">
 
-                                    <% switch (propiedades[0].tipo.nombre ) 
+                                    <% switch (propiedades[0].tipo.nombre + "s" ) 
                                     { case 'Casas' : %>
                                         <span class="material-symbols-outlined" style="font-size: 5rem; color:white">
                                             house
@@ -29,17 +29,17 @@
                                             apartment
                                         </span>
                                         <% break; 
-                                    case 'Fideicomisos' : %>
+                                    case 'Fideicomiso' : %>
                                         <span class="material-symbols-outlined" style="font-size: 5rem; color:white">
                                             partner_exchange
                                         </span>
                                         <% break; 
-                                    case 'Proyectos' : %>
+                                    case 'Proyecto' : %>
                                         <span class="material-symbols-outlined" style="font-size: 5rem; color:white">
                                             foundation
                                         </span>
                                         <% break;  
-                                    case 'Locales' : %>
+                                    case 'Local' : %>
                                         <span class="material-symbols-outlined" style="font-size: 5rem; color:white">
                                             storefront
                                         </span>
@@ -48,7 +48,7 @@
                                         <% } %>
 
                                     <h1>
-                                        <%= propiedades[0].tipo.nombre %>
+                                        <%= propiedades[0].tipo.nombre + "s" %>
                                     </h1>
                                 </div>
 

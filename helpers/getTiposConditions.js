@@ -1,18 +1,18 @@
 // Ruta para crear una propiedad
 const getTipoId = (tipo) => {
     switch (tipo) {
-      case 'Casas':
+      case 'Casa':
         return 1;
-      case 'Departamentos':
+      case 'Departamento':
         return 2;
-      case 'Fideicomisos':
+      case 'Fideicomiso':
         return 3;
-      case 'Proyectos':
+      case 'Proyecto':
         return 4;
-      case 'Locales':
+      case 'Local':
         return 5;
       default:
-        return null;
+        return 1;
     }
   };
   

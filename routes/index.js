@@ -6,11 +6,7 @@ const Usuario = require('../controllers/userControllers')
 const { propiedadesModel } = require("../db/config"); 
 const upload = require("../controllers/propiedadesControllers")
 
-// Middlewares
-const redirectToPropiedadesDate = (req, res, next) => {
-  res.redirect("/propiedadesDate");
-  next();
-};
+
 /* GET home page. */
 
 // router.get("/", function (req, res, next) {
@@ -64,6 +60,8 @@ router.get('/api/propiedadesDateJson/:id', Propiedades.getPropiedadesDateByIdJso
 router.get('/api/fechas', Propiedades.getFechas)
 
 router.post('/api/propiedadesDate/reservar',Propiedades.deleteReservas )
+
+router.post('/api/crearPropiedadesDate',Propiedades.crearPropiedadDate )
 
 //admin
 

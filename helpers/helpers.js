@@ -39,8 +39,8 @@ function mail(propiedad, body) {
 
   const mailOptions = {
     from: "tu_correo@gmail.com",
-    to: "corvattafranco@gmail.com",
-    subject: "Confirmación de reserva",
+    to: body.email,
+    subject: `Confirmacion de reserva ${body.codigoUnico}`,
     html: `
       
 
@@ -74,9 +74,10 @@ function mail(propiedad, body) {
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error("Error al enviar el correo electrónico:", error);
-      res.redirect('/date');
     } else {
       console.log("Correo electrónico enviado:", info.response);
+      console.log("cochi")
+      res.redirect('/date');
     }
   });
 }

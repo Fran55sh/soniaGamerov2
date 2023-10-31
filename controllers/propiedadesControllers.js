@@ -21,6 +21,7 @@ const {
   transporter,
   mail,
 } = require("../helpers/helpers");
+const { Console } = require("console");
 
 const upload = multer({ storage: storage });
 
@@ -479,6 +480,11 @@ class Propiedades {
 
     const body = req.body; // Suponiendo que los datos se envían en el cuerpo de la solicitud POST
     const propiedad = await propiedadesDateModel.findAll({
+      include: [
+        { model: tipoModel },
+        { model: condicionModel },
+        { model: fotoDateModel },
+      ],
       where: { id: body.id }, // Filtra por ID de propiedad
     });
     let montoADepositar = (Math.round(propiedad[0].precio) * propiedad[0].reserva) / 100;
@@ -502,6 +508,83 @@ class Propiedades {
       console.error("Error al crear la reserva:", error);
       res.status(500).json({ error: "Error al crear la reserva" });
     }
+  }
+
+
+  static async crearPropiedadDate ( req,res){
+
+const {nombre,
+  descripcion,
+  descripcioncorta,
+  ciudad,
+  provincia,
+  direccion,
+  divisa,
+  precio,
+  distanciaAlCentro,
+  distanciaAlMar,
+  wifi,
+  tv,
+  cochera,
+  mascotas,
+  pileta,
+  conBlanco,
+  lavarropa,
+  parrilla,
+  esDestacado,
+  cantidadPersonas,
+  cantidadAmbientes,
+  mapa,
+  reserva,
+  alias,
+  titular,
+  Cuenta,
+tipo} = req.body
+
+console.log(tipo)
+
+const tipoId = getTipoId(tipo);
+console.log(tipoId)
+
+
+try {
+  const propiedadDate = await propiedadesDateModel.create({
+    nombre,
+    descripcion,
+    descripcioncorta,
+    ciudad,
+    provincia,
+    direccion,
+    divisa,
+    precio,
+    distanciaAlCentro,
+    distanciaAlMar,
+    wifi,
+    tv,
+    cochera,
+    mascotas,
+    pileta,
+    conBlanco,
+    lavarropa,
+    parrilla,
+    esDestacado,
+    cantidadPersonas,
+    cantidadAmbientes,
+    mapa,
+    reserva,
+    alias,
+    titular,
+    Cuenta,
+    tipoId,
+    condicionId : 3
+  })
+  res.json(propiedadDate)
+} catch (error) {
+  console.error("Error al crear la propiedad NODE:", error);
+      res.status(500).json({ error: "Error al crear la propidad" });
+}
+
+    
   }
 }
 

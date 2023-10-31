@@ -59,22 +59,6 @@ function renderPropiedades(propiedades) {
     const propiedadElement = document.createElement("div");
     const imgElement = document.createElement("div");
 
-    // fotosArray = propiedad.Fotos;
-    // let newFotosArray = [];
-
-    // fotosArray.forEach((fotos) => {
-
-    //   newFotosArray.push(fotos.nombre);
-
-    // });
-
-    // newFotosArray.forEach((elemento) => {
-    //   const nuevoElemento = document.createElement("img");
-    //   // nuevoElemento.src = `./images/propiedades/${elemento}`;
-    //   imgElement.appendChild(nuevoElemento);
-
-    // });
-
     const tbodyElement = document.querySelector("tbody");
     const tableElement = document.createElement('tr')
     // Genera el contenido HTML del <tbody>
@@ -175,4 +159,85 @@ document.getElementById("propiedadForm").addEventListener("submit", (event) => {
   location.reload();
 });
 
+
+document.getElementById("propiedadTemporalForm").addEventListener("submit", (event) => {
+  event.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
+
+  // Obtiene los valores ingresados por el usuario
+  const nombre = document.getElementById("nombreDate").value;
+  const descripcion = document.getElementById("descripcionDate").value;
+  const descripcioncorta = document.getElementById("descripcioncortaDate").value;
+  const ciudad = document.getElementById("ciudad").value;
+  const provincia = document.getElementById("provincia").value;
+  const direccion = document.getElementById("direccionDate").value;
+  const divisa = document.getElementById("divisaDate").value;
+  const precio = document.getElementById("precioDate").value;
+  const distanciaAlCentro = document.getElementById("distanciaAlCentro").value;
+  const distanciaAlMar = document.getElementById("distanciaAlMar").value;
+  const wifi = document.getElementById("wifi").checked;
+  const tv = document.getElementById("tv").checked;
+  const cochera = document.getElementById("cochera").checked;
+  const mascotas = document.getElementById("mascotas").checked;
+  const pileta = document.getElementById("pileta").checked;
+  const conBlanco = document.getElementById("conBlanco").checked;
+  const lavarropa = document.getElementById("lavarropa").checked;
+  const parrilla = document.getElementById("parrilla").checked;
+  const esDestacado = document.getElementById("esDestacado").checked;
+  const cantidadPersonas = document.getElementById("cantidadPersonas").value;
+  const cantidadAmbientes = document.getElementById("cantidadAmbientes").value;
+  const mapa = document.getElementById("mapaDate").value;
+  const reserva = document.getElementById("reserva").value;
+  const alias = document.getElementById("alias").value;
+  const titular = document.getElementById("titular").value;
+  const Cuenta = document.getElementById("Cuenta").value;
+  const tipo = document.getElementById("tipoDate").value;
+
+  // Realiza una solicitud HTTP al servidor para crear la nueva propiedad
+
+  fetch("/api/crearPropiedadesDate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      nombre,
+  descripcion,
+  descripcioncorta,
+  ciudad,
+  provincia,
+  direccion,
+  divisa,
+  precio,
+  distanciaAlCentro,
+  distanciaAlMar,
+  wifi,
+  tv,
+  cochera,
+  mascotas,
+  pileta,
+  conBlanco,
+  lavarropa,
+  parrilla,
+  esDestacado,
+  cantidadPersonas,
+  cantidadAmbientes,
+  mapa,
+  reserva,
+  alias,
+  titular,
+  Cuenta,
+  tipo,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      alert("Propiedad creada exitosamente", data);
+      // Puedes redirigir al usuario a otra página o realizar alguna acción adicional después de crear la propiedad
+    })
+    .catch((error) => {
+      console.error("Error al crear la propiedad:", error);
+      alert("Error al crear la propiedad");
+    });
+  location.reload();
+});
 // Obtén una lista de todos los botones de eliminación de propiedades
