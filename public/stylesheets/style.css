@@ -808,7 +808,9 @@ footer{
     gap: 10px;
 }
 
-
+.wrapper1{
+  width: 100%;
+}
 .wrapper1 .card-descripcion-wrapper {
   width: 100%;
   display: flex;

@@ -160,6 +160,11 @@ document.getElementById("propiedadForm").addEventListener("submit", (event) => {
 });
 
 
+
+
+// -----------------------  ALQUILERES TEMPORALES --------------------------------- //
+
+
 document.getElementById("propiedadTemporalForm").addEventListener("submit", (event) => {
   event.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
 
