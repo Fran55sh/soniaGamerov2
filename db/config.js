@@ -232,7 +232,11 @@ const reservaModel = sequelize.define("reserva", {
   montoRestante: {
     type: DataTypes.INTEGER,
     allowNull: false,
-  }
+  },
+  datosCliente: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
 });
 
 // Ahora, establecemos la relación entre propiedadesDateModel y Disponibilidad:

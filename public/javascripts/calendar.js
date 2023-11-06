@@ -1,15 +1,12 @@
 let selectedDates = [];
 let totalDays = [];
 let fechasCoincidentes = [];
-let propiedad = []
-
-
+let propiedad = [];
 
 document.getElementById("checkin-date").textContent =
-          moment().format('DD/MM/YYYY');
-        document.getElementById("checkout-date").textContent =
-        moment().format('DD/MM/YYYY');
-
+  moment().format("DD/MM/YYYY");
+document.getElementById("checkout-date").textContent =
+  moment().format("DD/MM/YYYY");
 
 function getCookieInt(nombre) {
   var cookies = document.cookie.split(";"); // Divide la cadena de cookies en un array
@@ -44,7 +41,7 @@ fetch(`/api/propiedadesDateJson/${id}`)
   })
   .then((result) => {
     // Ahora "result" es el objeto JSON que puedes utilizar
-    propiedad = result
+    propiedad = result;
     propiedad[0].fechasDisponibilidad.forEach((element) => {
       // Agregar fechas a dispDays
       dispDays.push(element.fecha);
@@ -54,71 +51,69 @@ fetch(`/api/propiedadesDateJson/${id}`)
   })
   .catch((error) => console.log("Error:", error));
 
-  function getSelectedDates(startDate, endDate) {
-    var currentDate = startDate.clone();
+function getSelectedDates(startDate, endDate) {
+  var currentDate = startDate.clone();
 
-    while (currentDate.isSameOrBefore(endDate)) {
-      selectedDates.push(currentDate.format("YYYY-MM-DD"));
-      currentDate.add(1, "day");
-    }
-
-    return selectedDates;
+  while (currentDate.isSameOrBefore(endDate)) {
+    selectedDates.push(currentDate.format("YYYY-MM-DD"));
+    currentDate.add(1, "day");
   }
+
+  return selectedDates;
+}
 
 $(function () {
   // Función para bloquear fechas no disponibles
   function bloquearFechasNoDisponibles(dispDays) {
-    
-    $('input[name="daterange"]').daterangepicker({
-        "locale": {
-            "format": "DD/MM/YYYY",
-            "separator": " / ",
-            "applyLabel": "Apply",
-            "cancelLabel": "Cancel",
-            "fromLabel": "From",
-            "toLabel": "To",
-            "customRangeLabel": "Custom",
-            "weekLabel": "W",
-            "daysOfWeek": [
-                "Do",
-                "Lu",
-                "Ma",
-                "Mi",
-                "Ju",
-                "Vi",
-                "Sa"
-            ],
-            "monthNames": [
-                "Enero",
-                "Febrero",
-                "Marzo",
-                "Abril",
-                "Mayo",
-                "Jinio",
-                "Julio",
-                "Agosto",
-                "Septiembre",
-                "Octubre",
-                "Noviembre",
-                "Diciembre"
-            ],
-            "firstDay": 0
+    $('input[name="daterange"]').daterangepicker(
+      {
+        locale: {
+          format: "DD/MM/YYYY",
+          separator: " / ",
+          applyLabel: "Apply",
+          cancelLabel: "Cancel",
+          fromLabel: "From",
+          toLabel: "To",
+          customRangeLabel: "Custom",
+          weekLabel: "W",
+          daysOfWeek: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+          monthNames: [
+            "Enero",
+            "Febrero",
+            "Marzo",
+            "Abril",
+            "Mayo",
+            "Jinio",
+            "Julio",
+            "Agosto",
+            "Septiembre",
+            "Octubre",
+            "Noviembre",
+            "Diciembre",
+          ],
+          firstDay: 0,
         },
         startDate: moment(),
         opens: "left",
         isInvalidDate: function (date) {
+          let today = new Date();
+
+          // Formatea la fecha actual en 'yyyy-mm-dd'
+          let formattedToday = today.toISOString().slice(0, 10);
           // Convierte la fecha seleccionada a un formato comparable con las fechas disponibles
-          var fechaSeleccionada = date.format("YYYY-MM-DD");
+          let fechaSeleccionada = date.format("YYYY-MM-DD");
 
           // Comprueba si la fecha seleccionada no está en el array de fechas disponibles
-          return !dispDays.includes(fechaSeleccionada);
+          return (
+            !dispDays.includes(fechaSeleccionada) ||
+            date.isBefore(formattedToday, "day")
+          );
           // Función para obtener todas las fechas entre un rango dado
-          
         },
       },
       function (start, end, label) {
         selectedDates = [];
-        console.log(    
+        console.log(
           "A new date selection was made: " +
             start.format("DD/MM/YYYY") +
             " to " +
@@ -128,73 +123,74 @@ $(function () {
           start.format("DD/MM/YYYY");
         document.getElementById("checkout-date").textContent =
           end.format("DD/MM/YYYY");
-            
-            getSelectedDates(start, end);
-            fechasCoincidentes = selectedDates.filter(function (fecha) {
-              return dispDays.includes(fecha);
-            });
-            var precioDia = propiedad[0].precio;
+
+        getSelectedDates(start, end);
+        fechasCoincidentes = selectedDates.filter(function (fecha) {
+          return dispDays.includes(fecha);
+        });
+        var precioDia = propiedad[0].precio;
         totalDays = fechasCoincidentes.length;
         totalPrice = precioDia * totalDays;
 
         document.getElementById("total-price").textContent = totalPrice;
-        document.getElementById("reserv-price").textContent = Math.round(totalPrice*(propiedad[0].reserva/100));
-
-      },
-      
+        document.getElementById("reserv-price").textContent = Math.round(
+          totalPrice * (propiedad[0].reserva / 100)
+        );
+      }
     );
   }
 
   // Llama a la función para bloquear las fechas no disponibles
   bloquearFechasNoDisponibles(dispDays);
-
-  
-
 });
-async function reservar(){
-  const nombre = document.getElementById('nombre').value;
-  const email = document.getElementById('email').value;
-  const telefono = document.getElementById('telefono').value;
+
+async function reservar() {
+  const nombre = document.getElementById("nombre").value;
+  const email = document.getElementById("email").value;
+  const telefono = document.getElementById("telefono").value;
   const id = propiedad[0].id;
   const fechas = fechasCoincidentes;
-     // Comprobaciones
-     if (!nombre) {
-      alert('Por favor, ingrese un nombre válido.');
-      return;
+  // Comprobaciones
+  if (!nombre) {
+    alert("Por favor, ingrese un nombre válido.");
+    return;
   }
   if (!telefono) {
-    alert('Por favor, ingrese un telefono válido.');
+    alert("Por favor, ingrese un telefono válido.");
     return;
-}
+  }
 
   if (!/\S+@\S+\.\S+/.test(email)) {
-      alert('Por favor, ingrese un correo electrónico válido.');
-      return;
+    alert("Por favor, ingrese un correo electrónico válido.");
+    return;
   }
   if (!telefono.match(/^\d{10}$/)) {
-    alert('Por favor, ingrese un número de teléfono válido (debe tener 10 dígitos).');
+    alert(
+      "Por favor, ingrese un número de teléfono válido (debe tener 10 dígitos)."
+    );
     return;
-}
+  }
 
   if (fechas.length < 1) {
-      alert('Por favor, seleccione una fecha.');
-      return;
+    alert("Por favor, seleccione una fecha.");
+    return;
   }
-  
-  
+
   // Genera un código de identificación único para la reserva
   function generarCodigoReserva(nombreCliente) {
     const fechaReserva = new Date(); // Obtiene la fecha actual al momento de la reserva
-    
-    const nombreSinEspacios = nombreCliente.replace(/\s/g, ''); // Elimina los espacios del nombre del cliente
-    const fechaFormateada = fechaReserva.toISOString().replace(/-|:|\.\d+/g, ''); // Formatea la fecha como una cadena sin caracteres especiales
-    
+
+    const nombreSinEspacios = nombreCliente.replace(/\s/g, ""); // Elimina los espacios del nombre del cliente
+    const fechaFormateada = fechaReserva
+      .toISOString()
+      .replace(/-|:|\.\d+/g, ""); // Formatea la fecha como una cadena sin caracteres especiales
+
     const codigoUnico = nombreSinEspacios.slice(0, 3) + fechaFormateada; // Combina los primeros 3 caracteres del nombre con la fecha formateada
     return codigoUnico;
   }
-  
-  let codigoUnico = generarCodigoReserva(nombre)
-  
+
+  let codigoUnico = generarCodigoReserva(nombre);
+
   const datos = {
     id,
     fechas,
@@ -202,29 +198,27 @@ async function reservar(){
     email,
     telefono,
     codigoUnico,
-
-
   };
-// Realiza la solicitud utilizando fetch
-await fetch(`/api/propiedadesDate/reservar`, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(datos) // Convierte los datos a formato JSON
-})
-  .then(response => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      throw new Error('Error en la solicitud');
-    }
+  // Realiza la solicitud utilizando fetch
+  await fetch(`/api/propiedadesDate/reservar`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(datos), // Convierte los datos a formato JSON
   })
-  .then(data => {
-    console.log('Respuesta del servidor:', data);
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Error en la solicitud");
+      }
+    })
+    .then((data) => {
+      console.log("Respuesta del servidor:", data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
   // window.location.href = "/date";
 }

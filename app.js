@@ -20,7 +20,7 @@ let storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-
+const uploadDate = multer({ storage: storage });
 
 var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');

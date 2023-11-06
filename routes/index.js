@@ -3,15 +3,7 @@ let express = require("express");
 let router = express.Router();
 const Propiedades = require("../controllers/propiedadesControllers");
 const Usuario = require('../controllers/userControllers')
-const { propiedadesModel } = require("../db/config"); 
-const upload = require("../controllers/propiedadesControllers")
 
-
-/* GET home page. */
-
-// router.get("/", function (req, res, next) {
-//   res.render("index", { title: "Sonia Gamero Propiedades" });
-// });
 
 router.get("/propiedades", function (req, res, next) {
   res.render("propiedades");
@@ -56,12 +48,15 @@ router.get('/fechasPropiedades', Propiedades.getPropiedadesDateFechas)
 router.get('/api/propiedadesDate/:id', Propiedades.getPropiedadesDateById)
 
 router.get('/api/propiedadesDateJson/:id', Propiedades.getPropiedadesDateByIdJson)
+router.get('/api/propiedadesDateJson', Propiedades.getPropiedadesDateJson)
 
 router.get('/api/fechas', Propiedades.getFechas)
 
 router.post('/api/propiedadesDate/reservar',Propiedades.deleteReservas )
 
 router.post('/api/crearPropiedadesDate',Propiedades.crearPropiedadDate )
+
+router.post('/api/crearFechas',Propiedades.createDates )
 
 //admin
 
@@ -70,6 +65,8 @@ router.post("/acceso-restringido", Usuario.userAuth);
 router.post("/crear-propiedad",  Propiedades.postPropiedad)
 
 router.post("/subir-fotos", Propiedades.postFotos);
+
+router.post("/subir-fotosDate", Propiedades.postFotosDate);
 
 router.delete('/eliminar-propiedad', Propiedades.deletePropiedad)
 

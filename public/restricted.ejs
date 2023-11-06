@@ -188,38 +188,43 @@
               <option value="Proyecto">Proyecto</option>
               <option value="Local">Local</option>
             </select><br><br>
-
-
-            <label for="fecha">Selecciona fechas múltiples:</label>
-
-            <div class="fechas">
-              <input type="date" name="starDate" />
-              <br>
-              <input type="date" name="endDate" />
-            </div>
-            <br>
-
             <button type="submit">Crear Propiedad</button>
         </form>
 
 
       </div>
       </div>
+
+
       <div class="foto">
+        <h2>Asignar fechas</h2>
+        <form action='/api/crearFechas' method="POST">
+
+          <label for="propiedadDateIdFechas">Propiedad:</label>
+          <select id="propiedadDateIdFechas" name="propiedadDateId">
+          </select>
+
+          <label for="inicio">Fecha de inicio:</label><br>
+          <input type="date" id="inicio" name="inicio" required><br><br>
+
+          <label for="fin">Fecha de fin:</label><br>
+          <input type="date" id="fin" name="fin" required><br><br>
+          <br>
+          <input class="formButton" type="submit" value="Enviar">
+        </form>
 
 
 
-
-        <h1>Subir Fotos</h1>
-        <form id="fotosForm" enctype="multipart/form-data">
-          <label for="propiedadId">Propiedad:</label>
-          <select id="propiedadId" tables/ name="propiedadId">
+        <h2>Subir Fotos</h2>
+        <form id="fotosFormDate" enctype="multipart/form-data">
+          <label for="propiedadDateId">Propiedad:</label>
+          <select id="propiedadDateId" name="propiedadDateId">
             <!-- Opciones de propiedades -->
           </select>
           <br>
 
           <label for="fotos">Fotos:</label>
-          <input class="file-input" type="file" id="fotos" name="fotos" accept="image/*" multiple>
+          <input class="file-input" type="file" id="fotosDate" name="fotosDate" accept="image/*" multiple>
           <br>
 
           <input class="formButton" type="submit" value="Enviar">

@@ -22,13 +22,25 @@ let storage = multer.diskStorage({
   },
 });
 
+
+// Configuración del transporte
 let transporter = nodemailer.createTransport({
-  service: "gmail", // Configura tus detalles de servidor SMTP o autenticación según tu caso
-  auth: {
-    user: "corvattafranco@gmail.com", // Tu dirección de correo electrónico
-    pass: "bcut iauk gune qjuw", // Tu contraseña
-  },
+    host: 'mail.soniagameropropiedades.com', // Servidor de correo
+    port: 465, // Puerto SMTP
+    secure: true, // true para conexiones seguras
+    auth: {
+        user: 'info@soniagameropropiedades.com', // Tu dirección de correo
+        pass: 'Q0Ah$0j]H$_L' // Tu contraseña de correo
+    }
 });
+
+// let transporter = nodemailer.createTransport({
+//   service: "gmail", // Configura tus detalles de servidor SMTP o autenticación según tu caso
+//   auth: {
+//     user: "corvattafranco@gmail.com", // Tu dirección de correo electrónico
+//     pass: "bcut iauk gune qjuw", // Tu contraseña
+//   },
+// });
 
 function mail(propiedad, body) {
   let montoADepositar =

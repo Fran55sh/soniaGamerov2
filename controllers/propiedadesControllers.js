@@ -1,6 +1,7 @@
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const moment = require('moment');
 const { Op } = require("sequelize");
 const {
   propiedadesModel,
@@ -103,7 +104,7 @@ class Propiedades {
         res.render("propiedades", { propiedades: null }); // o puedes pasar un mensaje de error
       } else {
         // Devuelve las propiedades con relaciones en la respuesta
-     
+
         res.render("propiedades", { propiedades });
         // res.json(propiedades)
       }
@@ -148,7 +149,7 @@ class Propiedades {
         }); // o puedes pasar un mensaje de error
       } else {
         // Devuelve las propiedades con relaciones en la respuesta
-   
+
         res.render("index", { ultimasPropiedades, featPropiedades });
         // res.json(ultimasPropiedades);
       }
@@ -230,6 +231,35 @@ class Propiedades {
     } catch (error) {
       console.error("Error al almacenar las fotos:", error);
       res.status(500).json({ error: "Error al almacenar las fotos" });
+    }
+  }
+
+  static async postFotosDate(req, res) {
+  console.log(req.body)
+    if (req.files) {
+      try {
+        const propiedadDateId = req.body.propiedadDateId;
+        const fotosDate = req.files;
+        console.log(fotosDate)
+
+        for (let i = 0; i < fotosDate.length; i++) {
+          const fotoDate = fotosDate[i];
+          const nombreFoto = fotoDate.filename;
+          const rutaFoto = fotoDate.path;
+
+          // Crea una nueva instancia de Foto con el nombre de la foto y el ID de la propiedad
+          await fotoDateModel.create({
+            nombre: nombreFoto,
+            propiedadDateId: propiedadDateId,
+          });
+        }
+        res.status(200).json({ message: "Fotos almacenadas exitosamente" });
+      } catch (error) {
+        console.error("Error al almacenar las fotos:", error);
+        res.status(500).json({ error: "Error al almacenar las fotos" });
+      }
+    } else {
+      console.log("algo pasa");
     }
   }
 
@@ -412,6 +442,48 @@ class Propiedades {
     }
   }
 
+  static async getPropiedadesDateJson(req, res) {
+    const id = req.params.id;
+    try {
+      // Obtiene todas las propiedades con sus relaciones
+      const propiedad = await propiedadesDateModel.findAll({
+        include: [
+          { model: tipoModel },
+          { model: condicionModel },
+          { model: fotoDateModel },
+        ],
+        where: {
+          "$condicione.id$": 3,
+        },
+      });
+
+      const propiedadesConFechas = await Promise.all(
+        propiedad.map(async (propiedad) => {
+          const fechasDisponibilidad = await disponibilidadModel.findAll({
+            where: { propiedadDateId: propiedad.id }, // Filtra por ID de propiedad
+            // include: [{ model: fechaModel, attributes: ['fecha'] }],
+          });
+          return {
+            ...propiedad.toJSON(),
+            fechasDisponibilidad,
+          };
+        })
+      );
+
+      // Devuelve la propiedad con relaciones en la respuesta
+      if (propiedad.length === 0) {
+        // Maneja el caso cuando no hay propiedad encontradas
+        res.status(404).json({ error: "no se encontraron propiedades" });
+      } else {
+        // Devuelve la propiedad con relaciones en la respuesta
+        res.json(propiedadesConFechas);
+      }
+    } catch (error) {
+      console.error("Error al obtener la propiedad:", error);
+      res.status(500).json({ error: "Error al obtener la propiedad" });
+    }
+  }
+
   static async getPropiedadesByTipoDate(req, res) {
     const condicion = "Alquiler termporal";
     try {
@@ -476,7 +548,10 @@ class Propiedades {
   }
 
   static async deleteReservas(req, res) {
-    // Obtener los datos del formulario (si los hay)
+
+    console.log(req.body.nombre)
+    const array = [req.body.nombre,req.body.telefono,req.body.email];
+    const datosCliente = array.join(",")
 
     const body = req.body; // Suponiendo que los datos se envían en el cuerpo de la solicitud POST
     const propiedad = await propiedadesDateModel.findAll({
@@ -487,13 +562,16 @@ class Propiedades {
       ],
       where: { id: body.id }, // Filtra por ID de propiedad
     });
-    let montoADepositar = (Math.round(propiedad[0].precio) * propiedad[0].reserva) / 100;
-    let montoRestante = propiedad[0].precio - (Math.round(propiedad[0].precio) * propiedad[0].reserva) / 100;
+    let montoADepositar =
+      (Math.round(propiedad[0].precio) * propiedad[0].reserva) / 100;
+    let montoRestante =
+      propiedad[0].precio -
+      (Math.round(propiedad[0].precio) * propiedad[0].reserva) / 100;
 
     let fechas = body.fechas.toString();
     let id = propiedad[0].id;
 
-    mail(propiedad, body)
+    mail(propiedad, body);
 
     try {
       const reserva = await reservaModel.create({
@@ -501,90 +579,123 @@ class Propiedades {
         fechas,
         montoADepositar,
         montoRestante,
+        datosCliente,
       });
 
-      res.json(reserva)
+      res.json(reserva);
     } catch (error) {
       console.error("Error al crear la reserva:", error);
       res.status(500).json({ error: "Error al crear la reserva" });
     }
   }
 
+  static async crearPropiedadDate(req, res) {
+    const {
+      nombre,
+      descripcion,
+      descripcioncorta,
+      ciudad,
+      provincia,
+      direccion,
+      divisa,
+      precio,
+      distanciaAlCentro,
+      distanciaAlMar,
+      wifi,
+      tv,
+      cochera,
+      mascotas,
+      pileta,
+      conBlanco,
+      lavarropa,
+      parrilla,
+      esDestacado,
+      cantidadPersonas,
+      cantidadAmbientes,
+      mapa,
+      reserva,
+      alias,
+      titular,
+      Cuenta,
+      tipo,
+    } = req.body;
 
-  static async crearPropiedadDate ( req,res){
+    console.log(tipo);
 
-const {nombre,
-  descripcion,
-  descripcioncorta,
-  ciudad,
-  provincia,
-  direccion,
-  divisa,
-  precio,
-  distanciaAlCentro,
-  distanciaAlMar,
-  wifi,
-  tv,
-  cochera,
-  mascotas,
-  pileta,
-  conBlanco,
-  lavarropa,
-  parrilla,
-  esDestacado,
-  cantidadPersonas,
-  cantidadAmbientes,
-  mapa,
-  reserva,
-  alias,
-  titular,
-  Cuenta,
-tipo} = req.body
+    const tipoId = getTipoId(tipo);
+    console.log(tipoId);
 
-console.log(tipo)
-
-const tipoId = getTipoId(tipo);
-console.log(tipoId)
-
-
-try {
-  const propiedadDate = await propiedadesDateModel.create({
-    nombre,
-    descripcion,
-    descripcioncorta,
-    ciudad,
-    provincia,
-    direccion,
-    divisa,
-    precio,
-    distanciaAlCentro,
-    distanciaAlMar,
-    wifi,
-    tv,
-    cochera,
-    mascotas,
-    pileta,
-    conBlanco,
-    lavarropa,
-    parrilla,
-    esDestacado,
-    cantidadPersonas,
-    cantidadAmbientes,
-    mapa,
-    reserva,
-    alias,
-    titular,
-    Cuenta,
-    tipoId,
-    condicionId : 3
-  })
-  res.json(propiedadDate)
-} catch (error) {
-  console.error("Error al crear la propiedad NODE:", error);
+    try {
+      const propiedadDate = await propiedadesDateModel.create({
+        nombre,
+        descripcion,
+        descripcioncorta,
+        ciudad,
+        provincia,
+        direccion,
+        divisa,
+        precio,
+        distanciaAlCentro,
+        distanciaAlMar,
+        wifi,
+        tv,
+        cochera,
+        mascotas,
+        pileta,
+        conBlanco,
+        lavarropa,
+        parrilla,
+        esDestacado,
+        cantidadPersonas,
+        cantidadAmbientes,
+        mapa,
+        reserva,
+        alias,
+        titular,
+        Cuenta,
+        tipoId,
+        condicionId: 3,
+      });
+      res.json(propiedadDate);
+    } catch (error) {
+      console.error("Error al crear la propiedad NODE:", error);
       res.status(500).json({ error: "Error al crear la propidad" });
-}
+    }
+  }
 
-    
+  static async createDates(req, res) {
+    async function crearEntradasDesdeHasta(inicio, fin, propiedadDateId) {
+      const fechas = [];
+      const fechaInicio = moment(inicio);
+      const fechaFin = moment(fin);
+
+      while (fechaInicio.isSameOrBefore(fechaFin)) {
+        fechas.push(fechaInicio.format("YYYY-MM-DD"));
+        fechaInicio.add(1, "days");
+      }
+
+      try {
+        await Promise.all(
+          fechas.map(async (fecha) => {
+            await disponibilidadModel.create({
+              fecha: fecha,
+              propiedadDateId: propiedadDateId,
+            });
+          })
+        );
+
+        console.log("¡Entradas creadas exitosamente!");
+      } catch (error) {
+        console.error("Ha ocurrido un error al crear las entradas:", error);
+      }
+    }
+
+    // Llama a la función con tus valores deseados
+    const inicio = req.body.inicio;
+    const fin = req.body.fin;
+    const propiedadDateId = req.body.propiedadDateId; // Reemplaza con el valor que desees
+
+    crearEntradasDesdeHasta(inicio, fin, propiedadDateId);
   }
 }
 

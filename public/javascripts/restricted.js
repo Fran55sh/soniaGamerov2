@@ -1,5 +1,33 @@
 const propiedadesContainer = document.getElementById("propiedades-container");
 const imgElement = document.getElementById("imgElement");
+const nombre = document.getElementById("nombreDate").value;
+const descripcion = document.getElementById("descripcionDate").value;
+const descripcioncorta = document.getElementById("descripcioncortaDate").value;
+const ciudad = document.getElementById("ciudad").value;
+const provincia = document.getElementById("provincia").value;
+const direccion = document.getElementById("direccionDate").value;
+const divisa = document.getElementById("divisaDate").value;
+const precio = document.getElementById("precioDate").value;
+const distanciaAlCentro = document.getElementById("distanciaAlCentro").value;
+const distanciaAlMar = document.getElementById("distanciaAlMar").value;
+const wifi = document.getElementById("wifi").checked;
+const tv = document.getElementById("tv").checked;
+const cochera = document.getElementById("cochera").checked;
+const mascotas = document.getElementById("mascotas").checked;
+const pileta = document.getElementById("pileta").checked;
+const conBlanco = document.getElementById("conBlanco").checked;
+const lavarropa = document.getElementById("lavarropa").checked;
+const parrilla = document.getElementById("parrilla").checked;
+const esDestacado = document.getElementById("esDestacado").checked;
+const cantidadPersonas = document.getElementById("cantidadPersonas").value;
+const cantidadAmbientes = document.getElementById("cantidadAmbientes").value;
+const mapa = document.getElementById("mapaDate").value;
+const reserva = document.getElementById("reserva").value;
+const alias = document.getElementById("alias").value;
+const titular = document.getElementById("titular").value;
+const Cuenta = document.getElementById("Cuenta").value;
+const tipo = document.getElementById("tipoDate").value;
+
 getPropiedades();
 
 //Obtiene todas las propiedades para mostrarlas en el dropdown y obtener el id para subir la foto a esa propiedad especifica
@@ -44,6 +72,7 @@ document.getElementById("fotosForm").addEventListener("submit", (event) => {
     .then((response) => response.json())
     .then((data) => {
       alert("Fotos enviadas exitosamente", data);
+      console.log(data)
       // Puedes realizar alguna acción adicional después de enviar las fotos
     })
     .catch((error) => {
@@ -60,22 +89,22 @@ function renderPropiedades(propiedades) {
     const imgElement = document.createElement("div");
 
     const tbodyElement = document.querySelector("tbody");
-    const tableElement = document.createElement('tr')
+    const tableElement = document.createElement("tr");
     // Genera el contenido HTML del <tbody>
-    tableElement.innerHTML= `
+    tableElement.innerHTML = `
     
       <td class="column1">${propiedad.nombre}</td>
-      <td class="column2">${propiedad.descripcion.slice(0,60)}...</td>
+      <td class="column2">${propiedad.descripcion.slice(0, 60)}...</td>
       <td class="column3">${propiedad.precio}</td>
       <td class="column4">${propiedad.tipo.nombre}</td>
       <td class="column5">${propiedad.condicione.nombre}</td>
-      <td class="column6"><button class="eliminarPropiedadBtn" data-propiedad-id=${propiedad.id}>Eliminar Propiedad</button></td>
+      <td class="column6"><button class="eliminarPropiedadBtn" data-propiedad-id=${
+        propiedad.id
+      }>Eliminar Propiedad</button></td>
     
   `;
-  tbodyElement.appendChild(tableElement);
-      })
-
-
+    tbodyElement.appendChild(tableElement);
+  });
 }
 
 async function getPropiedades() {
@@ -159,90 +188,176 @@ document.getElementById("propiedadForm").addEventListener("submit", (event) => {
   location.reload();
 });
 
+// Obtén todas las propiedades para mostrarlas en el dropdown y obtener el ID para subir la foto a esa propiedad específica
+fetch("api/propiedadesDateJson")
+  .then((response) => response.json())
+  .then((data) => {
+    const propiedadDateDropdown = document.getElementById("propiedadDateId");
+    data.forEach((propiedad) => {
+      const option = document.createElement("option");
+      option.value = propiedad.id;
+      option.textContent = propiedad.nombre;
+      propiedadDateDropdown.appendChild(option);
+    });
+  })
+  .catch((error) => {
+    console.error("Error al obtener las propiedades Temporales:", error);
+  });
 
+fetch("api/propiedadesDateJson")
+  .then((response) => response.json())
+  .then((data) => {
+    const propiedadDateDropdownFechas = document.getElementById(
+      "propiedadDateIdFechas"
+    );
+    data.forEach((propiedad) => {
+      const option = document.createElement("option");
+      option.value = propiedad.id;
+      option.textContent = propiedad.nombre;
+      propiedadDateDropdownFechas.appendChild(option);
+    });
+  })
+  .catch((error) => {
+    console.error("Error al obtener las propiedades Temporales:", error);
+  });
 
-
-// -----------------------  ALQUILERES TEMPORALES --------------------------------- //
-
-
-document.getElementById("propiedadTemporalForm").addEventListener("submit", (event) => {
+// Agrega un listener al evento submit del formulario
+document.getElementById("fotosFormDate").addEventListener("submit", (event) => {
   event.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
 
-  // Obtiene los valores ingresados por el usuario
-  const nombre = document.getElementById("nombreDate").value;
-  const descripcion = document.getElementById("descripcionDate").value;
-  const descripcioncorta = document.getElementById("descripcioncortaDate").value;
-  const ciudad = document.getElementById("ciudad").value;
-  const provincia = document.getElementById("provincia").value;
-  const direccion = document.getElementById("direccionDate").value;
-  const divisa = document.getElementById("divisaDate").value;
-  const precio = document.getElementById("precioDate").value;
-  const distanciaAlCentro = document.getElementById("distanciaAlCentro").value;
-  const distanciaAlMar = document.getElementById("distanciaAlMar").value;
-  const wifi = document.getElementById("wifi").checked;
-  const tv = document.getElementById("tv").checked;
-  const cochera = document.getElementById("cochera").checked;
-  const mascotas = document.getElementById("mascotas").checked;
-  const pileta = document.getElementById("pileta").checked;
-  const conBlanco = document.getElementById("conBlanco").checked;
-  const lavarropa = document.getElementById("lavarropa").checked;
-  const parrilla = document.getElementById("parrilla").checked;
-  const esDestacado = document.getElementById("esDestacado").checked;
-  const cantidadPersonas = document.getElementById("cantidadPersonas").value;
-  const cantidadAmbientes = document.getElementById("cantidadAmbientes").value;
-  const mapa = document.getElementById("mapaDate").value;
-  const reserva = document.getElementById("reserva").value;
-  const alias = document.getElementById("alias").value;
-  const titular = document.getElementById("titular").value;
-  const Cuenta = document.getElementById("Cuenta").value;
-  const tipo = document.getElementById("tipoDate").value;
+  // Obtiene el ID de la propiedad seleccionada
+  const propiedadDateId = document.getElementById("propiedadDateId").value;
 
-  // Realiza una solicitud HTTP al servidor para crear la nueva propiedad
+  // Obtiene los archivos de imagen seleccionados
+  const fotosDate = document.getElementById("fotosDate");
+  const fotoDate = fotosDate.files;
 
-  fetch("/api/crearPropiedadesDate", {
+  // Crea un objeto FormData para enviar los datos
+  const formDataDate = new FormData();
+  formDataDate.append("propiedadDateId", propiedadDateId);
+  for (let i = 0; i < fotoDate.length; i++) {
+    console.log(fotoDate[i])
+    formDataDate.append("fotos", fotoDate[i]);
+  }
+
+  // Realiza una solicitud HTTP al servidor para subir las fotos
+  fetch("/subir-fotosDate", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      nombre,
-  descripcion,
-  descripcioncorta,
-  ciudad,
-  provincia,
-  direccion,
-  divisa,
-  precio,
-  distanciaAlCentro,
-  distanciaAlMar,
-  wifi,
-  tv,
-  cochera,
-  mascotas,
-  pileta,
-  conBlanco,
-  lavarropa,
-  parrilla,
-  esDestacado,
-  cantidadPersonas,
-  cantidadAmbientes,
-  mapa,
-  reserva,
-  alias,
-  titular,
-  Cuenta,
-  tipo,
-    }),
+    body: formDataDate,
   })
     .then((response) => response.json())
     .then((data) => {
-      alert("Propiedad creada exitosamente", data);
-      // Puedes redirigir al usuario a otra página o realizar alguna acción adicional después de crear la propiedad
+      alert("Fotos enviadas exitosamente", data);
+      console.log(data)
+      // Puedes realizar alguna acción adicional después de enviar las fotos
     })
     .catch((error) => {
+      console.error("Error al enviar las fotos:", error);
+      alert("Error al enviar las fotos");
+    });
+  // location.reload();
+});
+
+// Función para obtener propiedades
+async function getPropiedadesDate() {
+  try {
+    const response = await fetch("/api/propiedadesDateJson");
+    const data = await response.json();
+    renderPropiedades(data);
+  } catch (error) {
+    console.error("Error al obtener las propiedades Temporales:", error);
+  }
+}
+
+
+// Función para obtener propiedades
+async function getPropiedadesDate() {
+  try {
+    const response = await fetch("/api/propiedadesDateJson");
+    const data = await response.json();
+    renderPropiedades(data);
+  } catch (error) {
+    console.error("Error al obtener las propiedades Temporales:", error);
+  }
+}
+
+// Listener para el envío del formulario de propiedades temporales
+document
+  .getElementById("propiedadTemporalForm")
+  .addEventListener("submit", async (event) => {
+    event.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
+
+    // Obtiene los valores ingresados por el usuario
+    const formData = new FormData(
+      document.getElementById("propiedadTemporalForm")
+    );
+
+    try {
+      const response = await fetch("/api/crearPropiedadesDate", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+      alert("Propiedad creada exitosamente");
+      // Puedes redirigir al usuario a otra página o realizar alguna acción adicional después de crear la propiedad
+    } catch (error) {
       console.error("Error al crear la propiedad:", error);
       alert("Error al crear la propiedad");
-    });
-  location.reload();
-});
+    }
+  });
+
+// -----------------------  ALQUILERES TEMPORALES --------------------------------- //
+
+document
+  .getElementById("propiedadTemporalForm")
+  .addEventListener("submit", (event) => {
+    event.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
+
+    fetch("/api/crearPropiedadesDate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nombre,
+        descripcion,
+        descripcioncorta,
+        ciudad,
+        provincia,
+        direccion,
+        divisa,
+        precio,
+        distanciaAlCentro,
+        distanciaAlMar,
+        wifi,
+        tv,
+        cochera,
+        mascotas,
+        pileta,
+        conBlanco,
+        lavarropa,
+        parrilla,
+        esDestacado,
+        cantidadPersonas,
+        cantidadAmbientes,
+        mapa,
+        reserva,
+        alias,
+        titular,
+        Cuenta,
+        tipo,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        alert("Propiedad creada exitosamente", data);
+        // Puedes redirigir al usuario a otra página o realizar alguna acción adicional después de crear la propiedad
+      })
+      .catch((error) => {
+        console.error("Error al crear la propiedad:", error);
+        alert("Error al crear la propiedad");
+      });
+    location.reload();
+  });
 // Obtén una lista de todos los botones de eliminación de propiedades
