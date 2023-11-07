@@ -60,7 +60,13 @@ router.post('/api/propiedadesDate/reservar',Propiedades.deleteReservas )
 
 router.post('/api/crearPropiedadesDate',Propiedades.crearPropiedadDate )
 
+router.patch('/api/modificarPropiedadesDate',Propiedades.modificarPropiedadDate )
+
 router.post('/api/crearFechas',Propiedades.createDates )
+
+router.delete('/api/deletePropiedadesDate',Propiedades.deletePropiedadDate )
+
+
 
 //admin
 

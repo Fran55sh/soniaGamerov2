@@ -117,6 +117,10 @@
 
             <label for="precio">Precio:</label>
             <input type="text" id="precioDate" name="precio" required><br><br>
+            
+            <label for="mapa">Mapa:</label>
+            <input type="text" id="mapaDate" name="mapa" required><br><br>
+
 
           </div>
           <div>
@@ -166,16 +170,13 @@
             <label for="cantidadAmbientes">Cantidad de Ambientes:</label>
             <input type="number" id="cantidadAmbientes" name="cantidadAmbientes" required><br><br>
 
-            <label for="mapa">Mapa:</label>
-            <input type="text" id="mapaDate" name="mapa" required><br><br>
-
             <label for="reserva">Reserva: (en porcentaje)</label>
             <input type="number" id="reserva" name="reserva" required><br><br>
 
             <label for="diasMinimos">Dias de alquiler minimos:</label>
             <input type="number" id="diasMinimos" name="diasMinimos" required><br><br>
 
-            <label for="plazo">PLazo para realizar la reserva: </label>
+            <label for="plazo">Plazo para realizar la reserva: </label>
             <input type="number" id="plazo" name="plazo" required><br><br>
 
             <label for="titular">Titular:</label>
@@ -195,6 +196,7 @@
               <option value="Local">Local</option>
             </select><br><br>
             <button type="submit">Crear Propiedad</button>
+            
         </form>
 
 
@@ -203,26 +205,32 @@
 
 
       <div class="foto">
-        <h2>Asignar fechas</h2>
-        <form action='/api/crearFechas' method="POST">
-
-          <label for="propiedadDateIdFechas">Propiedad:</label>
+       
+        <form style="display: flex; flex-direction: column;" action='/api/crearFechas' method="POST">
+          <h2>Acciones</h2>
+          <label for="propiedadDateIdFechas">Alquiler Temporal:</label>
           <select id="propiedadDateIdFechas" name="propiedadDateId">
           </select>
 
+
+          
+
+            <button style="margin-top: 10px;" id="btnPatchDate" type="submit">Modificar Propiedad</button>
+            <button style="margin-top: 10px;" id="btnDeleteDate" type="submit">Eliminar Propiedad</button>
+
+          <h2 style="margin-top: 20px;">Asignar Disponibilidad</h2>
           <label for="inicio">Fecha de inicio:</label><br>
           <input type="date" id="inicio" name="inicio" required><br><br>
 
           <label for="fin">Fecha de fin:</label><br>
           <input type="date" id="fin" name="fin" required><br><br>
           <br>
-          <input class="formButton" type="submit" value="Enviar">
+          <input class="formButton" type="submit" value="Asignar">
         </form>
+        
 
-
-
-        <h2>Subir Fotos</h2>
-        <form id="fotosFormDate" enctype="multipart/form-data">
+        <form style="margin-top: 20px;" id="fotosFormDate" enctype="multipart/form-data">
+          <h2>Subir Fotos</h2>
           <label for="propiedadDateId">Propiedad:</label>
           <select id="propiedadDateId" name="propiedadDateId">
             <!-- Opciones de propiedades -->
@@ -233,8 +241,10 @@
           <input class="file-input" type="file" id="fotosDate" name="fotosDate" accept="image/*" multiple>
           <br>
 
-          <input class="formButton" type="submit" value="Enviar">
+          <input style="margin-top: 10px;" class="formButton" type="submit" value="Subir Fotos">
         </form>
+
+        
     </section>
 
   </body>

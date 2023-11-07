@@ -614,6 +614,8 @@ class Propiedades {
       cantidadAmbientes,
       mapa,
       reserva,
+      diasMinimos, 
+      plazo,
       alias,
       titular,
       Cuenta,
@@ -650,6 +652,8 @@ class Propiedades {
         cantidadAmbientes,
         mapa,
         reserva,
+        diasMinimos,
+        plazo,
         alias,
         titular,
         Cuenta,
@@ -663,6 +667,109 @@ class Propiedades {
     }
   }
 
+  static async modificarPropiedadDate(req, res) {
+    const {
+      propiedadDateId,
+      nombre,
+      descripcion,
+      descripcioncorta,
+      ciudad,
+      provincia,
+      direccion,
+      divisa,
+      precio,
+      distanciaAlCentro,
+      distanciaAlMar,
+      wifi,
+      tv,
+      cochera,
+      mascotas,
+      pileta,
+      conBlanco,
+      lavarropa,
+      parrilla,
+      esDestacado,
+      cantidadPersonas,
+      cantidadAmbientes,
+      mapa,
+      reserva,
+      diasMinimos, 
+      plazo,
+      alias,
+      titular,
+      Cuenta,
+      tipo,
+    } = req.body;
+  
+    try {
+      const propiedadExistente = await propiedadesDateModel.findByPk(propiedadDateId);
+  
+      if (!propiedadExistente) {
+        return res.status(404).json({ error: "La propiedad no existe" });
+      }
+  
+      const updatedFields = {};
+  
+      if (nombre) updatedFields.nombre = nombre;
+      if (descripcion) updatedFields.descripcion = descripcion;
+      if (descripcioncorta) updatedFields.descripcioncorta = descripcioncorta;
+      if (ciudad) updatedFields.ciudad = ciudad;
+      if (provincia) updatedFields.provincia = provincia;
+      if (direccion) updatedFields.direccion = direccion;
+      if (divisa) updatedFields.divisa = divisa;
+      if (precio) updatedFields.precio = precio;
+      if (distanciaAlCentro) updatedFields.distanciaAlCentro = distanciaAlCentro;
+      if (distanciaAlMar) updatedFields.distanciaAlMar = distanciaAlMar;
+      if (mapa) updatedFields.mapa = mapa;
+      if (reserva) updatedFields.reserva = reserva;
+      if (diasMinimos) updatedFields.diasMinimos = diasMinimos;
+      if (plazo) updatedFields.plazo = plazo;
+      if (alias) updatedFields.alias = alias;
+      if (titular) updatedFields.titular = titular;
+      if (Cuenta) updatedFields.Cuenta = Cuenta;
+      if (tipo) updatedFields.tipoId = getTipoId(tipo);
+      if (cantidadPersonas) updatedFields.cantidadPersonas = cantidadPersonas;
+      if (cantidadAmbientes) updatedFields.cantidadAmbientes = cantidadAmbientes;
+  
+      // Comparar y actualizar campos booleanos
+      if (wifi !== undefined && propiedadExistente.wifi !== wifi) {
+        updatedFields.wifi = wifi;
+      }
+      if (tv !== undefined && propiedadExistente.tv !== tv) {
+        updatedFields.tv = tv;
+      }
+      if (cochera !== undefined && propiedadExistente.cochera !== cochera) {
+        updatedFields.cochera = cochera;
+      }
+      if (mascotas !== undefined && propiedadExistente.mascotas !== mascotas) {
+        updatedFields.mascotas = mascotas;
+      }
+      if (pileta !== undefined && propiedadExistente.pileta !== pileta) {
+        updatedFields.pileta = pileta;
+      }
+      if (conBlanco !== undefined && propiedadExistente.conBlanco !== conBlanco) {
+        updatedFields.conBlanco = conBlanco;
+      }
+      if (lavarropa !== undefined && propiedadExistente.lavarropa !== lavarropa) {
+        updatedFields.lavarropa = lavarropa;
+      }
+      if (parrilla !== undefined && propiedadExistente.parrilla !== parrilla) {
+        updatedFields.parrilla = parrilla;
+      }
+      if (esDestacado !== undefined && propiedadExistente.esDestacado !== esDestacado) {
+        updatedFields.esDestacado = esDestacado;
+      }
+  console.log(updatedFields)
+      const updatedPropiedadDate = await propiedadExistente.update(updatedFields);
+  
+      res.json(updatedPropiedadDate);
+    } catch (error) {
+      console.error("Error al modificar la propiedad:", error);
+      res.status(500).json({ error: "Error al modificar la propiedad" });
+    }
+  }
+  
+  
   static async createDates(req, res) {
     async function crearEntradasDesdeHasta(inicio, fin, propiedadDateId) {
       const fechas = [];
@@ -697,6 +804,68 @@ class Propiedades {
 
     crearEntradasDesdeHasta(inicio, fin, propiedadDateId);
   }
+
+  static async deletePropiedadDate(req, res) {
+    try {
+      const propiedadId = req.body.propiedadDateId;
+
+      // Obtén la lista de nombres de imágenes asociadas a la propiedad desde la base de datos
+      const fotos = await fotoDateModel.findAll({
+        where: {
+          propiedadDateId: propiedadId,
+        },
+        attributes: ["nombre"],
+      });
+
+      // Elimina las imágenes del sistema de archivos
+      for (let i = 0; i < fotos.length; i++) {
+        const foto = fotos[i];
+        const rutaFoto = path.join(
+          __dirname,
+          "../public/images/propiedades",
+          foto.nombre
+        );
+
+        try {
+          // Verifica si la imagen existe en el sistema de archivos antes de eliminarla
+          if (fs.existsSync(rutaFoto)) {
+            // Elimina la imagen del sistema de archivos
+            fs.unlinkSync(rutaFoto);
+          }
+        } catch (err) {
+          console.error(
+            "Error al eliminar la imagen del sistema de archivos:",
+            err
+          );
+        }
+      }
+
+      // Elimina los registros de imágenes asociados a la propiedad de la base de datos
+      await fotoDateModel.destroy({
+        where: {
+          propiedadDateId: propiedadId,
+        },
+      });
+
+      // Elimina la propiedad de la base de datos
+      await propiedadesDateModel.destroy({
+        where: {
+          id: propiedadId,
+        },
+      });
+
+      res
+        .status(200)
+        .json({ message: "Propiedad y sus imágenes eliminadas correctamente" });
+    } catch (error) {
+      console.error("Error al eliminar la propiedad y sus imágenes:", error);
+      res
+        .status(500)
+        .json({ error: "Error al eliminar la propiedad y sus imágenes" });
+    }
+  }
 }
+
+
 
 (module.exports = Propiedades), upload;
