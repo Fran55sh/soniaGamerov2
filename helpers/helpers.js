@@ -1,6 +1,7 @@
 const nodemailer = require("nodemailer");
 const multer = require("multer");
 let fechaActual = new Date();
+require("dotenv").config();
 
 // Agrega 5 días a la fecha actual
 fechaActual.setDate(fechaActual.getDate() + 5);
@@ -29,8 +30,8 @@ let transporter = nodemailer.createTransport({
     port: 465, // Puerto SMTP
     secure: true, // true para conexiones seguras
     auth: {
-        user: 'info@soniagameropropiedades.com', // Tu dirección de correo
-        pass: 'Q0Ah$0j]H$_L' // Tu contraseña de correo
+        user: process.env.EMAILUSER, // Tu dirección de correo
+        pass: process.env.APIKEY // Tu contraseña de correo
     }
 });
 
@@ -38,7 +39,7 @@ let transporter = nodemailer.createTransport({
 //   service: "gmail", // Configura tus detalles de servidor SMTP o autenticación según tu caso
 //   auth: {
 //     user: "corvattafranco@gmail.com", // Tu dirección de correo electrónico
-//     pass: "bcut iauk gune qjuw", // Tu contraseña
+//     pass: "", // Tu contraseña
 //   },
 // });
 
