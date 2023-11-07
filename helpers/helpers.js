@@ -24,24 +24,24 @@ let storage = multer.diskStorage({
 });
 
 
-// Configuración del transporte
-let transporter = nodemailer.createTransport({
-    host: 'mail.soniagameropropiedades.com', // Servidor de correo
-    port: 465, // Puerto SMTP
-    secure: true, // true para conexiones seguras
-    auth: {
-        user: process.env.EMAILUSER, // Tu dirección de correo
-        pass: process.env.APIKEY // Tu contraseña de correo
-    }
-});
-
+// // Configuración del transporte
 // let transporter = nodemailer.createTransport({
-//   service: "gmail", // Configura tus detalles de servidor SMTP o autenticación según tu caso
-//   auth: {
-//     user: "corvattafranco@gmail.com", // Tu dirección de correo electrónico
-//     pass: "", // Tu contraseña
-//   },
+//     host: 'mail.soniagameropropiedades.com', // Servidor de correo
+//     port: 465, // Puerto SMTP
+//     secure: true, // true para conexiones seguras
+//     auth: {
+//         user: process.env.EMAILUSER, // Tu dirección de correo
+//         pass: process.env.APIKEY // Tu contraseña de correo
+//     }
 // });
+
+let transporter = nodemailer.createTransport({
+  service: "gmail", // Configura tus detalles de servidor SMTP o autenticación según tu caso
+  auth: {
+    user: process.env.GOOGLEUSER, // Tu dirección de correo electrónico
+    pass: process.env.APIKEY_GOOGLE, // Tu contraseña
+  },
+});
 
 function mail(propiedad, body) {
   let montoADepositar =
@@ -89,8 +89,7 @@ function mail(propiedad, body) {
       console.error("Error al enviar el correo electrónico:", error);
     } else {
       console.log("Correo electrónico enviado:", info.response);
-      console.log("cochi")
-      res.redirect('/date');
+      res.redirect('/reservaok');
     }
   });
 }

@@ -182,6 +182,16 @@ const propiedadesDateModel = sequelize.define(
       allowNull: false,
       defaultValue: false,
     },
+    diasMinimos: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: false,
+    },
+    plazo: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: false,
+    },
     titular: {
       type: DataTypes.TEXT,
       allowNull: false,

@@ -1119,5 +1119,30 @@ padding: 10px;
 
 }
 
+.textoReserva{
+  text-align: center;
+  font-size: 1.1rem;
+  margin: auto;
+  display: grid;
+  place-items: center;
+  width: 60%;
+  background-color: rgba(255,255,255,0.5);
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.btnReserva{
+  background-color: transparent;
+  border: none;
+  padding: 5px;
+}
+
+.btnReserva a{
+  text-decoration: none;
+  color: white;
+  font-size: 1.1rem;
+}
+
 
 /* Fin estilos seccion reserva*/

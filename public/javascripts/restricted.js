@@ -23,6 +23,8 @@ const cantidadPersonas = document.getElementById("cantidadPersonas").value;
 const cantidadAmbientes = document.getElementById("cantidadAmbientes").value;
 const mapa = document.getElementById("mapaDate").value;
 const reserva = document.getElementById("reserva").value;
+const diasMinimos = document.getElementById("diasMinimos").value;
+const plazo = document.getElementById("plazo").value;
 const alias = document.getElementById("alias").value;
 const titular = document.getElementById("titular").value;
 const Cuenta = document.getElementById("Cuenta").value;
@@ -343,6 +345,8 @@ document
         cantidadAmbientes,
         mapa,
         reserva,
+        diasMinimos,
+        plazo,
         alias,
         titular,
         Cuenta,

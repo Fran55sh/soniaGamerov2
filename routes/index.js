@@ -24,6 +24,10 @@ router.get('/detallePropiedadDate/:dato', function(req,res,next){
   res.render("detallePropiedad")
 })
 
+router.get("/reservaok", function (req, res, next) {
+  res.render("reservaok");
+});
+
 
 //propiedades
 
