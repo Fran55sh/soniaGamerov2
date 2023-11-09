@@ -54,6 +54,45 @@ class Propiedades {
     }
   }
 
+  static async  modificarPropiedad(req, res) {
+    console.log("aqui")
+    const {
+      propiedadId,
+      nombre,
+      descripcion,
+      descripcioncorta,
+      direccion,
+      divisa,
+      precio,
+      tipo,
+    } = req.body;
+  
+    try {
+      const propiedadExistente = await propiedadesModel.findByPk(propiedadId);
+  
+      if (!propiedadExistente) {
+        return res.status(404).json({ error: "La propiedad no existe" });
+      }
+  
+      
+      const updatedPropiedadDate = await propiedadExistente.update({
+        propiedadId,
+      nombre,
+      descripcion,
+      descripcioncorta,
+      direccion,
+      divisa,
+      precio,
+      tipo,
+      });
+  
+      res.json(updatedPropiedadDate);
+    } catch (error) {
+      console.error("Error al modificar la propiedad:", error);
+      res.status(500).json({ error: "Error al modificar la propiedad" });
+    }
+  }
+
   static async getPropiedadesById(req, res) {
     const id = req.params.id;
     try {
@@ -166,6 +205,7 @@ class Propiedades {
         descripcion,
         descripcioncorta,
         direccion,
+        divisa,
         precio,
         esDestacado,
         mapa,
@@ -192,6 +232,7 @@ class Propiedades {
         descripcion,
         descripcioncorta,
         direccion,
+        divisa,
         precio,
         esDestacado,
         mapa,
@@ -547,11 +588,13 @@ class Propiedades {
     }
   }
 
-  static async deleteReservas(req, res) {
+  static async generateReservas(req, res) {
 
+    const codigoUnico = req.body.codigoUnico
     console.log(req.body.nombre)
     const array = [req.body.nombre,req.body.telefono,req.body.email];
     const datosCliente = array.join(",")
+
 
     const body = req.body; // Suponiendo que los datos se envían en el cuerpo de la solicitud POST
     const propiedad = await propiedadesDateModel.findAll({
@@ -572,6 +615,22 @@ class Propiedades {
     let id = propiedad[0].id;
 
     mail(propiedad, body);
+    try {
+      const propiedadDateId = req.body.id; // Asegúrate de obtener el ID de la propiedad
+    
+      // Divide el string de fechas en un array
+      const fechasArray = req.body.fechas
+    
+      // Elimina las fechas coincidentes del modelo 'disponibilidad' para el ID de la propiedad específico
+      await disponibilidadModel.destroy({ where: { fecha: fechasArray, propiedadDateId: propiedadDateId } });
+    
+      // Verifica el resultado y envía una respuesta apropiada al cliente
+      // res.status(200).json({ message: "reserva y fechas asociadas eliminadas correctamente" });
+    } catch (error) {
+      console.error("Error al eliminar la reserva y las fechas asociadas", error);
+      res.status(500).json({ error: "Error al eliminar la reserva y las fechas asociadas:" });
+    }
+    
 
     try {
       const reserva = await reservaModel.create({
@@ -580,6 +639,7 @@ class Propiedades {
         montoADepositar,
         montoRestante,
         datosCliente,
+        codigoUnico
       });
 
       res.json(reserva);
@@ -587,7 +647,13 @@ class Propiedades {
       console.error("Error al crear la reserva:", error);
       res.status(500).json({ error: "Error al crear la reserva" });
     }
+
+    
+  
+  
   }
+
+  
 
   static async crearPropiedadDate(req, res) {
     const {
@@ -789,8 +855,11 @@ class Propiedades {
               propiedadDateId: propiedadDateId,
             });
           })
-        );
 
+
+          
+        );
+        res.status(200).json({ message: "fechas creadas correctamente", reloadPage: true });;
         console.log("¡Entradas creadas exitosamente!");
       } catch (error) {
         console.error("Ha ocurrido un error al crear las entradas:", error);
@@ -803,6 +872,9 @@ class Propiedades {
     const propiedadDateId = req.body.propiedadDateId; // Reemplaza con el valor que desees
 
     crearEntradasDesdeHasta(inicio, fin, propiedadDateId);
+    
+
+   
   }
 
   static async deletePropiedadDate(req, res) {
@@ -864,6 +936,125 @@ class Propiedades {
         .json({ error: "Error al eliminar la propiedad y sus imágenes" });
     }
   }
+
+  static async deleteFechasDisponibles(req, res) {
+    try {
+      const propiedadId = req.body.propiedadDateId;
+  
+      const result = await disponibilidadModel.destroy({ where: { propiedadDateId: propiedadId } });
+  
+      // Verifica el resultado y envía una respuesta apropiada al cliente
+      res
+        .status(200)
+        .json({ message: "Fechas eliminadas correctamente" });
+    } catch (error) {
+      console.error("Error al eliminar las fechas:", error);
+      res
+        .status(500)
+        .json({ error: "Error al eliminar las fechas:" });
+    } 
+  }
+
+  static async getReservas(req, res) {
+    try {
+      const reservas = await reservaModel.findAll({
+        include: [{
+          model: propiedadesDateModel, // Suponiendo que propiedadDateModel es el modelo de la tabla propiedadDate
+          attributes: ['nombre'], // Asegúrate de incluir los atributos que necesitas de la tabla propiedadDate
+        }]
+      });
+      res.status(200).json({ reservas });
+    } catch (error) {
+      res.status(500).json({ error: "Error al obtener las reservas:" });
+    }
+  }
+  
+  static async deleteReservas(req, res) {
+    try {
+      const reservaId = req.body.reservaId;
+  
+      const result = await reservaModel.destroy({ where: { id: reservaId } });
+  
+      // Verifica el resultado y envía una respuesta apropiada al cliente
+      res.status(200).json({ message: "reserva eliminada correctamente", reloadPage: true });;
+    } catch (error) {
+      console.error("Error al eliminar la reserva", error);
+      res
+        .status(500)
+        .json({ error: "Error al eliminar la reserva:" });
+    } 
+
+    
+  }
+
+  static async cancelReservas(req, res) {
+    console.log("aqui")
+    const fechasString = req.body.fechas;
+    const reservaId = req.body.reservaId;
+    const propiedadDateId = req.body.propiedadDateId;
+  
+    try {
+      const result = await reservaModel.destroy({ where: { id: reservaId } });
+  
+      const fechasArray = fechasString.split(",");
+      const inicio = fechasArray[0];
+      const fin = fechasArray[fechasArray.length - 1];
+  
+      // Llama a la función con tus valores deseados
+      await crearEntradasDesdeHasta(inicio, fin, propiedadDateId);
+  
+      // Verifica el resultado y envía una respuesta apropiada al cliente
+      res.status(200).json({ message: "reserva eliminada correctamente" });
+    } catch (error) {
+      console.error("Error al eliminar la reserva", error);
+      res.status(500).json({ error: "Error al eliminar la reserva:" , reloadPage: true});
+    }
+  
+    async function crearEntradasDesdeHasta(inicio, fin, propiedadDateId) {
+      const fechas = [];
+      const fechaInicio = moment(inicio);
+      const fechaFin = moment(fin);
+  
+      while (fechaInicio.isSameOrBefore(fechaFin)) {
+        fechas.push(fechaInicio.format("YYYY-MM-DD"));
+        fechaInicio.add(1, "days");
+      }
+  
+      try {
+        await Promise.all(
+          fechas.map(async (fecha) => {
+            await disponibilidadModel.create({
+              fecha: fecha,
+              propiedadDateId: propiedadDateId,
+            });
+          })
+        );
+  
+        console.log("¡Entradas creadas exitosamente!");
+      } catch (error) {
+        console.error("Ha ocurrido un error al crear las entradas:", error);
+      }
+    }
+  }
+
+  static async pagoReservas(req, res) {
+    try {
+      const reservaId = req.body.reservaId;
+  
+      const result = await reservaModel.update({ estado: 'Reserva abonada' }, { where: { id: reservaId } });
+  
+      // Verifica el resultado y envía una respuesta apropiada al cliente
+      res.status(200).json({ message: "pago procesado correctamente", reloadPage: true });;
+    } catch (error) {
+      console.error("Error al procesar el pago", error);
+      res
+        .status(500)
+        .json({ error: "Error al procesar el pago:" });
+    } 
+
+    
+  }
+  
 }
 
 

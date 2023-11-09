@@ -41,7 +41,7 @@ router.get('/api/propiedades/:dato', Propiedades.getPropiedadesByTipo);
 
 router.get('/api/propiedad/:id', Propiedades.getPropiedadesById)
 
-
+router.patch('/api/modificarPropiedades',Propiedades.modificarPropiedad)
 
 
 //propiedades temporales
@@ -56,7 +56,9 @@ router.get('/api/propiedadesDateJson', Propiedades.getPropiedadesDateJson)
 
 router.get('/api/fechas', Propiedades.getFechas)
 
-router.post('/api/propiedadesDate/reservar',Propiedades.deleteReservas )
+router.post('/api/propiedadesDate/reservar',Propiedades.generateReservas )
+
+router.get('/api/obtenerReservas',Propiedades.getReservas )
 
 router.post('/api/crearPropiedadesDate',Propiedades.crearPropiedadDate )
 
@@ -65,6 +67,14 @@ router.patch('/api/modificarPropiedadesDate',Propiedades.modificarPropiedadDate 
 router.post('/api/crearFechas',Propiedades.createDates )
 
 router.delete('/api/deletePropiedadesDate',Propiedades.deletePropiedadDate )
+
+router.delete('/api/deleteFechas',Propiedades.deleteFechasDisponibles )
+
+router.delete('/api/deleteReservas',Propiedades.deleteReservas )
+
+router.post('/api/cancelReservas',Propiedades.cancelReservas )
+
+router.post('/api/pagoReservas',Propiedades.pagoReservas)
 
 
 

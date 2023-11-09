@@ -32,8 +32,13 @@ const propiedadesModel = sequelize.define(
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    precio: {
+    divisa: {
       type: DataTypes.TEXT,
+      allowNull: false,
+    },
+
+    precio: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     esDestacado: {
@@ -247,11 +252,22 @@ const reservaModel = sequelize.define("reserva", {
     type: DataTypes.TEXT,
     allowNull: false,
   },
+  codigoUnico: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  estado: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+    defaultValue: "pendiente de pago",
+  },
+
+
 });
 
 // Ahora, establecemos la relación entre propiedadesDateModel y Disponibilidad:
 propiedadesDateModel.hasMany(disponibilidadModel, { as: "disponibilidades" });
-disponibilidadModel.belongsTo(propiedadesDateModel);
+disponibilidadModel.belongsTo(propiedadesDateModel, {foreignKey: "propiedadDateId"});
 
 // Establece las relaciones entre los modelos
 propiedadesModel.belongsTo(tipoModel, { foreignKey: "tipoId" });

@@ -508,7 +508,7 @@ footer{
   display: flex;
   margin: auto;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: stretch;
   margin-top: 50px;
   margin-bottom: 40px;
 }
@@ -740,10 +740,12 @@ footer{
 }
 .swiper {
   width: 90%;
+  height: auto !important;
   aspect-ratio: 16/10;
   -o-object-fit: cover;
      object-fit: cover;
 }
+
 
 .swiper-slide-img {
   width: 100%;
@@ -1151,5 +1153,24 @@ padding: 10px;
   font-size: 1.1rem;
 }
 
+.mostrarReservas{
+  display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
+
+.cardReserva{
+  margin: 5px;
+    width: 30%;
+    background-color: rgba(255,255,255,0.5);
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.cardReserva p{
+  word-break: break-word; 
+}
 
 /* Fin estilos seccion reserva*/

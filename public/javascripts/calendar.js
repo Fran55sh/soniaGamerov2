@@ -171,8 +171,8 @@ async function reservar() {
     return;
   }
 
-  if (fechas.length < 1) {
-    alert("Por favor, seleccione una fecha.");
+  if (fechas.length < propiedad[0].diasMinimos) {
+    alert(`El plazo minimo para alquilar esta propiedad es de ${propiedad[0].diasMinimos} dias`);
     return;
   }
 

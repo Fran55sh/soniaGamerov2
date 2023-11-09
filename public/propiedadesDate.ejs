@@ -70,9 +70,9 @@
                                                 <%= propiedad.nombre %>
                                             </p>
                                             <p class="card-description-price">
-                                                Precio: USD <%= propiedad.precio %>
+                                                Precio: <%= propiedad.divisa %> <%= propiedad.precio %> 
                                             </p>
-                                            <p class="card-description-specs">
+                                            <p class="card-description-specs" style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 20px;"></p>>
                                                 <%= propiedad.descripcioncorta %>
                                             </p>
 

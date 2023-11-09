@@ -74,7 +74,7 @@
                         <%= propiedad.nombre %>
                     </p>
                     <p class="card-description-price">
-                        Precio: USD <%= propiedad.precio %>
+                      Precio: <%= propiedad.divisa %> <%= propiedad.precio %>
                     </p>
                     <p class="card-description-specs">
                         <%= propiedad.descripcioncorta %>
@@ -149,7 +149,7 @@
                         <%= propiedad.nombre %>
                     </p>
                     <p class="card-description-price">
-                        Precio: USD <%= propiedad.precio %>
+                        Precio: <%= propiedad.divisa %> <%= propiedad.precio %>
                     </p>
                     <p class="card-description-specs">
                         <%= propiedad.descripcioncorta %>
@@ -181,20 +181,20 @@
             <span class="material-symbols-outlined">
               house
             </span>
-            <p class="search-card-title">casa</p>
+            <p class="search-card-title">Casas</p>
             <div class="line"></div>
             <p class="search-card-description"> Encuentra tu hogar perfecto entre nuestra amplia selección de casa. Espacios cómodos, diseños funcionales y acabados de calidad para cumplir tus sueños de vivienda</p>
-            <button class="search-card-button" data-propiedad-tipo=casa >Buscar casa</button>
+            <button class="search-card-button" data-propiedad-tipo=Casas >Buscar Casas</button>
           </div>
 
           <div class="search-card">
             <span class="material-symbols-outlined">
               apartment
               </span>
-            <p class="search-card-title">departamento</p>
+            <p class="search-card-title">Departamentos</p>
             <div class="line"></div>
             <p class="search-card-description">Descubre nuestros modernos departamentos, diseñados para brindarte comodidad y estilo. Ambientes bien distribuidos, vistas impresionantes y servicios que se adaptan a tu estilo de vida.</p>
-            <button class="search-card-button" data-propiedad-tipo=departamento>Buscar departamento</button>
+            <button class="search-card-button" data-propiedad-tipo=Departamentos>Buscar Departamentos</button>
           </div>
 
           <div class="search-card">
@@ -211,20 +211,20 @@
             <span class="material-symbols-outlined">
               foundation
               </span>
-            <p class="search-card-title">proyecto</p>
+            <p class="search-card-title">Proyectos</p>
             <div class="line"></div>
             <p class="search-card-description">Descubre nuestros emocionantes proyecto inmobiliarios. Diseños innovadores, materiales de calidad y atención meticulosa a los detalles para crear espacios únicos y funcionales.</p>
-            <button class="search-card-button" data-propiedad-tipo=proyecto>Buscar proyecto</button>
+            <button class="search-card-button" data-propiedad-tipo=Proyectos>Buscar Proyectos</button>
           </div>
           <div class="search-card">
 
             <span class="material-symbols-outlined">
               storefront
               </span>
-            <p class="search-card-title">local</p>
+            <p class="search-card-title">Locales</p>
             <div class="line"></div>
             <p class="search-card-description">Tenemos local comerciales disponibles para tu negocio. Ubicaciones estratégicas, espacios versátiles y visibilidad para que puedas alcanzar el éxito empresarial.</p>
-            <button class="search-card-button" data-propiedad-tipo=local>Buscar Locales</button>
+            <button class="search-card-button" data-propiedad-tipo=Locales>Buscar Locales</button>
           </div>
           <div class="search-card">
 

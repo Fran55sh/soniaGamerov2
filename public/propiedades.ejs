@@ -3,10 +3,7 @@
 <% include ./ejs/head %>
 
     <body>
-
-
-
-        <% if (propiedades===null) { %>
+      <% if (propiedades===null) { %>
             <div class="cover" id="coverPropiedades" style="height: 100vh;">
                 <% include ./ejs/header %>
 
@@ -18,7 +15,7 @@
                             <% include ./ejs/header %>
                                 <div class="coverPropiedadesText">
 
-                                    <% switch (propiedades[0].tipo.nombre + "s" ) 
+                                    <% switch (propiedades[0].tipo.nombre  ) 
                                     { case 'Casas' : %>
                                         <span class="material-symbols-outlined" style="font-size: 5rem; color:white">
                                             house
@@ -29,17 +26,17 @@
                                             apartment
                                         </span>
                                         <% break; 
-                                    case 'Fideicomiso' : %>
+                                    case 'Fideicomisos' : %>
                                         <span class="material-symbols-outlined" style="font-size: 5rem; color:white">
                                             partner_exchange
                                         </span>
                                         <% break; 
-                                    case 'Proyecto' : %>
+                                    case 'Proyectos' : %>
                                         <span class="material-symbols-outlined" style="font-size: 5rem; color:white">
                                             foundation
                                         </span>
                                         <% break;  
-                                    case 'Local' : %>
+                                    case 'Locales' : %>
                                         <span class="material-symbols-outlined" style="font-size: 5rem; color:white">
                                             storefront
                                         </span>
@@ -48,7 +45,7 @@
                                         <% } %>
 
                                     <h1>
-                                        <%= propiedades[0].tipo.nombre + "s" %>
+                                        <%= propiedades[0].tipo.nombre  %>
                                     </h1>
                                 </div>
 
@@ -91,7 +88,7 @@
                                                 <%= propiedad.nombre %>
                                             </p>
                                             <p class="card-description-price">
-                                                Precio: USD <%= propiedad.precio %>
+                                                Precio: <%= propiedad.divisa %> <%= propiedad.precio %>
                                             </p>
                                             <p class="card-description-specs">
                                                 <%= propiedad.descripcioncorta %>
@@ -102,22 +99,12 @@
                                     <% }) %>
                             </div>
 
-
-
-
-
                         </section>
 
 
-                        <% include ./ejs/footer %>
-                            <% } %>
+                        <% include ./ejs/footer %> <% } %>
 
-
-
-
-
-
-                                <script src=" https://cdn.jsdelivr.net/npm/swiper@9.3.2/swiper-bundle.min.js"></script>
+<script src=" https://cdn.jsdelivr.net/npm/swiper@9.3.2/swiper-bundle.min.js"></script>
                                 <script>
 
                                     const swipers = Array.from(document.querySelectorAll('.swiper'));
