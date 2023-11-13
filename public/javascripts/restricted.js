@@ -75,13 +75,13 @@ document.getElementById("propiedadForm").addEventListener("submit", (event) => {
     .then((response) => response.json())
     .then((data) => {
       alert("Propiedad creada exitosamente", data);
+      location.reload();
       // Puedes redirigir al usuario a otra página o realizar alguna acción adicional después de crear la propiedad
     })
     .catch((error) => {
       console.error("Error al crear la propiedad:", error);
       alert("Error al crear la propiedad");
     });
-  location.reload();
 });
 
 // sube las fotos de propiedades
@@ -378,13 +378,13 @@ document
       .then((response) => response.json())
       .then((data) => {
         alert("Propiedad creada exitosamente", data);
+        location.reload();
         // Puedes redirigir al usuario a otra página o realizar alguna acción adicional después de crear la propiedad
       })
       .catch((error) => {
         console.error("Error al crear la propiedad:", error);
         alert("Error al crear la propiedad");
       });
-    location.reload();
   });
 
 // sube las fotos de las propiedades temporales

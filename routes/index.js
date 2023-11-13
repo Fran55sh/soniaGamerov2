@@ -44,7 +44,7 @@ router.get('/api/propiedad/:id', Propiedades.getPropiedadesById)
 router.patch('/api/modificarPropiedades',Propiedades.modificarPropiedad)
 
 
-//propiedades temporales
+//
 router.get('/date', Propiedades.getPropiedadesByTipoDate)
 
 router.get('/fechasPropiedades', Propiedades.getPropiedadesDateFechas)
